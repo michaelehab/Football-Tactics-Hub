@@ -1,17 +1,21 @@
-import { createPostRequest, createPostResponse, listPostRequest, listPostResponse } from '../api';
+import {
+  createPostRequest,
+  createPostResponse,
+  getPostRequest,
+  getPostResponse,
+  listPostRequest,
+  listPostResponse,
+} from '../api';
 import { db } from '../datastore';
-import { ExpressHandler, Post } from '../types';
+import { ExpressHandler, ExpressHandlerWithParams, Post } from '../types';
 
 const crypto = require('crypto');
 
-export const listPostsHandler: ExpressHandler<listPostRequest, listPostResponse> = (req, res) => {
-  return res.send({ posts: db.listPosts() });
-};
-
-const checkPostRequiredField = (fieldName: string, value: string | undefined) => {
-  if (!value) {
-    throw `${fieldName} is required, but missing`;
-  }
+export const listPostsHandler: ExpressHandler<listPostRequest, listPostResponse> = async (
+  req,
+  res
+) => {
+  return res.send({ posts: await db.listPosts() });
 };
 
 export const createPostHandler: ExpressHandler<createPostRequest, createPostResponse> = (
@@ -40,4 +44,21 @@ export const createPostHandler: ExpressHandler<createPostRequest, createPostResp
 
   db.createPost(post);
   res.sendStatus(200);
+};
+
+export const getPostHandler: ExpressHandlerWithParams<
+  { id: string },
+  getPostRequest,
+  getPostResponse
+> = async (req, res) => {
+  if (!req.params.id) {
+    return res.sendStatus(400);
+  }
+
+  const post = await db.getPost(req.params.id);
+  if (!post) {
+    return res.sendStatus(404);
+  }
+
+  return res.send({ post: post });
 };

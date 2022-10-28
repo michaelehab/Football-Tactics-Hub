@@ -1,65 +1,91 @@
-import { DataStore } from "..";
-import { User, Like, Comment, Post } from "../../types";
-export class InMemoryDataStore implements DataStore{
-    private users : User[] = [];
-    private likes : Like[] = [];
-    private comments : Comment[] = [];
-    private posts : Post[] = [];
+import { DataStore } from '..';
+import { Comment, Like, Post, User } from '../../types';
 
-    createUser(user: User): void {
-        this.users.push(user);
+export class InMemoryDataStore implements DataStore {
+  private users: User[] = [];
+  private posts: Post[] = [];
+  private comments: Comment[] = [];
+  private likes: Like[] = [];
+
+  getUserById(id: string): Promise<User | undefined> {
+    throw new Error('Method not implemented.');
+  }
+
+  deleteLike(like: Like): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
+  getLikes(postId: string): Promise<number> {
+    throw new Error('Method not implemented.');
+  }
+
+  exists(like: Like): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  countComments(postId: string): Promise<number> {
+    throw new Error('Method not implemented.');
+  }
+
+  getPostByUrl(url: string): Promise<Post | undefined> {
+    throw new Error('Method not implemented.');
+  }
+
+  createUser(user: User): Promise<void> {
+    this.users.push(user);
+    return Promise.resolve();
+  }
+
+  getUserByEmail(email: string): Promise<User | undefined> {
+    return Promise.resolve(this.users.find(u => u.email === email));
+  }
+
+  getUserByUsername(username: string): Promise<User | undefined> {
+    return Promise.resolve(this.users.find(u => u.userName === username));
+  }
+
+  listPosts(): Promise<Post[]> {
+    return Promise.resolve(this.posts);
+  }
+
+  createPost(post: Post): Promise<void> {
+    this.posts.push(post);
+    return Promise.resolve();
+  }
+
+  getPost(id: string): Promise<Post | undefined> {
+    return Promise.resolve(this.posts.find(p => p.id === id));
+  }
+
+  deletePost(id: string): Promise<void> {
+    const index = this.posts.findIndex(p => p.id === id);
+    if (index === -1) {
+      return Promise.resolve();
     }
-    getUserById(id: string): User | undefined {
-        return this.users.find(u => u.id === id);
+    this.posts.splice(index, 1);
+    return Promise.resolve();
+  }
+
+  createLike(like: Like): Promise<void> {
+    this.likes.push(like);
+    return Promise.resolve();
+  }
+
+  createComment(comment: Comment): Promise<void> {
+    this.comments.push(comment);
+    return Promise.resolve();
+  }
+
+  listComments(postId: string): Promise<Comment[]> {
+    return Promise.resolve(this.comments.filter(c => c.postId === postId));
+  }
+
+  deleteComment(id: string): Promise<void> {
+    const index = this.comments.findIndex(c => c.id === id);
+    if (index === -1) {
+      return Promise.resolve();
     }
-    getUserByEmail(email: string): User | undefined {
-        return this.users.find(u => u.email === email);
-    }
-    getUserByUsername(userName: string): User | undefined {
-        return this.users.find(u => u.userName === userName);
-    }
-    createLike(like: Like): void {
-        throw new Error("Method not implemented.");
-    }
-    deleteLike(like: Like): void {
-        throw new Error("Method not implemented.");
-    }
-    getLikes(postId: string): number {
-        throw new Error("Method not implemented.");
-    }
-    exists(like: Like): boolean {
-        throw new Error("Method not implemented.");
-    }
-    createComment(comment: Comment): void {
-        throw new Error("Method not implemented.");
-    }
-    countComments(postId: string): number {
-        throw new Error("Method not implemented.");
-    }
-    listComments(postId: string): Comment[] {
-        throw new Error("Method not implemented.");
-    }
-    deleteComment(id: string): void {
-        throw new Error("Method not implemented.");
-    }
-    listPosts(): Post[] {
-        return this.posts;
-    }
-    createPost(post: Post): void {
-        this.posts.push(post);
-    }
-    getPost(id: string): Post | undefined {
-        return this.posts.find(p => p.id === id);
-    }
-    getPostByUrl(url: string): Post | undefined {
-        return this.posts.find(p => p.url === url);
-    }
-    deletePost(id: string): void {
-        const index = this.comments.findIndex(c => c.id === id);
-        if (index === -1) {
-            return;
-        }
-        this.posts.splice(index, 1);
-    }
-    
+    this.posts.splice(index, 1);
+    return Promise.resolve();
+  }
 }
