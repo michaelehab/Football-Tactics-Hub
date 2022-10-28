@@ -1,4 +1,4 @@
-import express, { RequestHandler } from 'express';
+import express, { ErrorRequestHandler, RequestHandler } from 'express';
 import { db } from './datastore';
 import { createPostHandler, listPostsHandler } from './handlers/postHandler';
 
@@ -13,8 +13,15 @@ const requestLoggerMiddleWare: RequestHandler = (req, res, next) => {
 
 app.use(requestLoggerMiddleWare);
 
-app.get('/posts', listPostsHandler);
+app.get('/api/v1/posts', listPostsHandler);
 
-app.post('/posts', createPostHandler);
+app.post('/api/v1/posts', createPostHandler);
+
+const errHandler : ErrorRequestHandler = (err, eq, res, next) => {
+    console.log("Uncaught Error: ", err);
+    return res.status(500).send("An Unexpected Error occurred, Please try again!");
+}
+
+app.use(errHandler);
 
 app.listen(3000);
