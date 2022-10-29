@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-import { SignUpRequest, SignUpResponse } from '../api';
+import { SignInRequest, SignInResponse, SignUpRequest, SignUpResponse } from '../api';
 import { db } from '../datastore';
 import { ExpressHandler, User } from '../types';
 import { validateEmail } from '../utils';
@@ -32,4 +32,26 @@ export const SignUpHandler: ExpressHandler<SignUpRequest, SignUpResponse> = asyn
 
   await db.createUser(usr);
   return res.sendStatus(200);
+};
+
+export const SignInHandler: ExpressHandler<SignInRequest, SignInResponse> = async (req, res) => {
+  const { login, password } = req.body;
+
+  if (!login || !password) {
+    return res.sendStatus(400);
+  }
+
+  const existingUser = (await db.getUserByEmail(login)) || (await db.getUserByUsername(login));
+
+  if (!existingUser || existingUser.password !== password) {
+    return res.sendStatus(403);
+  }
+
+  return res.status(200).send({
+    id: existingUser.id,
+    email: existingUser.email,
+    firstName: existingUser.firstName,
+    lastName: existingUser.lastName,
+    userName: existingUser.userName,
+  });
 };

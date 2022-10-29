@@ -3,7 +3,7 @@ import AsyncHandler from 'express-async-handler';
 
 import { initDb } from './datastore';
 import { createPostHandler, listPostsHandler } from './handlers/postHandler';
-import { SignUpHandler } from './handlers/userHandler';
+import { SignInHandler, SignUpHandler } from './handlers/userHandler';
 
 (async () => {
   await initDb();
@@ -23,7 +23,9 @@ import { SignUpHandler } from './handlers/userHandler';
 
   app.post('/api/v1/posts', AsyncHandler(createPostHandler));
 
-  app.post('/api/v1/user', AsyncHandler(SignUpHandler));
+  app.post('/api/v1/signup', AsyncHandler(SignUpHandler));
+
+  app.post('/api/v1/signin', AsyncHandler(SignInHandler));
 
   const errHandler: ErrorRequestHandler = (err, eq, res, next) => {
     console.log('Uncaught Error: ', err);
