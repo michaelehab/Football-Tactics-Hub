@@ -1,24 +1,24 @@
 import {
-  createPostRequest,
-  createPostResponse,
-  getPostRequest,
-  getPostResponse,
-  listPostRequest,
-  listPostResponse,
+  CreatePostRequest,
+  CreatePostResponse,
+  GetPostRequest,
+  GetPostResponse,
+  ListPostRequest,
+  ListPostResponse,
 } from '../api';
 import { db } from '../datastore';
 import { ExpressHandler, ExpressHandlerWithParams, Post } from '../types';
 
 const crypto = require('crypto');
 
-export const listPostsHandler: ExpressHandler<listPostRequest, listPostResponse> = async (
+export const listPostsHandler: ExpressHandler<ListPostRequest, ListPostResponse> = async (
   req,
   res
 ) => {
   return res.send({ posts: await db.listPosts() });
 };
 
-export const createPostHandler: ExpressHandler<createPostRequest, createPostResponse> = async (
+export const createPostHandler: ExpressHandler<CreatePostRequest, CreatePostResponse> = async (
   req,
   res
 ) => {
@@ -48,8 +48,8 @@ export const createPostHandler: ExpressHandler<createPostRequest, createPostResp
 
 export const getPostHandler: ExpressHandlerWithParams<
   { id: string },
-  getPostRequest,
-  getPostResponse
+  GetPostRequest,
+  GetPostResponse
 > = async (req, res) => {
   if (!req.params.id) {
     return res.sendStatus(400);
