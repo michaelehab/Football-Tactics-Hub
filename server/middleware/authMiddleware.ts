@@ -14,6 +14,7 @@ export const authMiddleware: RequestHandler = async (req, res, next) => {
     if (!user) {
       throw 'User not found';
     }
+    res.locals.userId = user.id;
     next();
   } catch {
     return res.status(401).send({ error: 'Bad Token' });

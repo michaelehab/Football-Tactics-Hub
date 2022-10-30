@@ -30,15 +30,11 @@ export const createPostHandler: ExpressHandler<CreatePostRequest, CreatePostResp
     return res.status(400).send({ error: 'Url field is required but missing' });
   }
 
-  if (!req.body.userId) {
-    return res.status(400).send({ error: 'UserID field is required but missing' });
-  }
-
   const post: Post = {
     id: crypto.randomBytes(20).toString('hex'),
     title: req.body.title,
     url: req.body.url,
-    userId: req.body.userId,
+    userId: res.locals.userId,
     postedAt: Date.now(),
   };
 

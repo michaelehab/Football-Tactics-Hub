@@ -26,9 +26,9 @@ import { loggerMiddleWare } from './middleware/loggerMiddleware';
 
   app.use(authMiddleware);
 
-  app.get('/api/v1/posts', AsyncHandler(listPostsHandler));
+  app.get('/api/v1/posts/list', AsyncHandler(listPostsHandler));
 
-  app.post('/api/v1/posts', AsyncHandler(createPostHandler));
+  app.post('/api/v1/posts/new', AsyncHandler(createPostHandler));
 
   app.use(errorMiddleware);
 
