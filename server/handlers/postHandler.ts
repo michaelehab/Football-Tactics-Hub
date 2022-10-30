@@ -23,15 +23,15 @@ export const createPostHandler: ExpressHandler<CreatePostRequest, CreatePostResp
   res
 ) => {
   if (!req.body.title) {
-    return res.status(400).send('Title field is required but missing!');
+    return res.status(400).send({ error: 'Title field is required but missing' });
   }
 
   if (!req.body.url) {
-    return res.status(400).send('Url field is required but missing!');
+    return res.status(400).send({ error: 'Url field is required but missing' });
   }
 
   if (!req.body.userId) {
-    return res.status(400).send('UserID field is required but missing!');
+    return res.status(400).send({ error: 'UserID field is required but missing' });
   }
 
   const post: Post = {

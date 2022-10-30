@@ -1,3 +1,5 @@
+import { JsonWebTokenError } from 'jsonwebtoken';
+
 import { Post, User } from './types';
 
 // Post APIs
@@ -20,11 +22,16 @@ export type SignUpRequest = Pick<
   'email' | 'firstName' | 'lastName' | 'password' | 'userName'
 >;
 
-export interface SignUpResponse {}
+export interface SignUpResponse {
+  jwt: string;
+}
 
 export interface SignInRequest {
   login: string; // Can be both userName or email
   password: string;
 }
 
-export type SignInResponse = Pick<User, 'email' | 'firstName' | 'lastName' | 'id' | 'userName'>;
+export type SignInResponse = {
+  user: Pick<User, 'email' | 'firstName' | 'lastName' | 'id' | 'userName'>;
+  jwt: string;
+};
