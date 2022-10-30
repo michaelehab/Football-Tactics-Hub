@@ -4,7 +4,7 @@ import { SignInRequest, SignInResponse, SignUpRequest, SignUpResponse } from '..
 import { signJwt } from '../auth';
 import { db } from '../datastore';
 import { ExpressHandler, User } from '../types';
-import { validateEmail } from '../utils';
+import { getPasswordHashed, validateEmail } from '../utils';
 
 export const SignUpHandler: ExpressHandler<SignUpRequest, SignUpResponse> = async (req, res) => {
   const { email, firstName, lastName, userName, password } = req.body;
@@ -27,7 +27,7 @@ export const SignUpHandler: ExpressHandler<SignUpRequest, SignUpResponse> = asyn
     firstName,
     lastName,
     userName,
-    password,
+    password: getPasswordHashed(password),
     email,
   };
 
@@ -46,7 +46,7 @@ export const SignInHandler: ExpressHandler<SignInRequest, SignInResponse> = asyn
 
   const existingUser = (await db.getUserByEmail(login)) || (await db.getUserByUsername(login));
 
-  if (!existingUser || existingUser.password !== password) {
+  if (!existingUser || existingUser.password !== getPasswordHashed(password)) {
     return res.status(403).send({ error: 'Wrong Credentials' });
   }
 
