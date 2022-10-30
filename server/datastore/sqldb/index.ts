@@ -102,7 +102,7 @@ export class SQLDataStore implements DataStore {
     throw new Error('Method not implemented.');
   }
 
-  deletePost(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async deletePost(id: string): Promise<void> {
+    await this.db.run('DELETE FROM posts WHERE id = ?', id);
   }
 }

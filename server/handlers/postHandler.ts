@@ -1,6 +1,8 @@
 import {
   CreatePostRequest,
   CreatePostResponse,
+  DeletePostRequest,
+  DeletePostResponse,
   GetPostRequest,
   GetPostResponse,
   ListPostRequest,
@@ -57,4 +59,21 @@ export const getPostHandler: ExpressHandlerWithParams<
   }
 
   return res.send({ post: post });
+};
+
+export const deletePostHandler: ExpressHandlerWithParams<
+  { id: string },
+  DeletePostRequest,
+  DeletePostResponse
+> = async (req, res) => {
+  if (!req.params.id) {
+    return res.status(400).send({ error: 'Post id is missing' });
+  }
+  const post = await db.getPost(req.params.id);
+  if (!post || post.userId != res.locals.userId) {
+    return res.sendStatus(401);
+  }
+
+  await db.deletePost(post.id);
+  return res.sendStatus(200);
 };

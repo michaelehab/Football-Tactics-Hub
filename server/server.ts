@@ -4,7 +4,12 @@ import AsyncHandler from 'express-async-handler';
 
 import { initDb } from './datastore';
 import { SignInHandler, SignUpHandler } from './handlers/authHandler';
-import { createPostHandler, listPostsHandler } from './handlers/postHandler';
+import {
+  createPostHandler,
+  deletePostHandler,
+  getPostHandler,
+  listPostsHandler,
+} from './handlers/postHandler';
 import { authMiddleware } from './middleware/authMiddleware';
 import { errorMiddleware } from './middleware/errorMiddleware';
 import { loggerMiddleWare } from './middleware/loggerMiddleware';
@@ -29,6 +34,10 @@ import { loggerMiddleWare } from './middleware/loggerMiddleware';
   app.get('/api/v1/posts/list', AsyncHandler(listPostsHandler));
 
   app.post('/api/v1/posts/new', AsyncHandler(createPostHandler));
+
+  app.get('/api/v1/posts/:id', AsyncHandler(getPostHandler));
+
+  app.delete('/api/v1/posts/:id', AsyncHandler(deletePostHandler));
 
   app.use(errorMiddleware);
 

@@ -16,6 +16,11 @@ export interface GetPostResponse {
   post: Post;
 }
 
+export interface DeletePostRequest {
+  postId: string;
+}
+export interface DeletePostResponse {}
+
 // Users APIs
 export type SignUpRequest = Pick<
   User,
