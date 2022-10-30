@@ -8,11 +8,11 @@ import { validateEmail } from '../utils';
 export const SignUpHandler: ExpressHandler<SignUpRequest, SignUpResponse> = async (req, res) => {
   const { email, firstName, lastName, userName, password } = req.body;
   if (!email || !firstName || !lastName || !password || !userName) {
-    return res.status(400).send('All Fields are required!');
+    return res.status(400).send({ error: 'All Fields are required!' });
   }
 
   if (!validateEmail(email)) {
-    res.status(400).send('The email you sent is invalid!');
+    res.status(400).send({ error: 'The email you sent is invalid!' });
   }
 
   const existingUser = (await db.getUserByEmail(email)) || (await db.getUserByUsername(userName));
