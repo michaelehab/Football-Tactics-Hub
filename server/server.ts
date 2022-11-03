@@ -35,6 +35,7 @@ import { loggerMiddleWare } from './middleware/loggerMiddleware';
 
     [Endpoints.signin]: authHandler.signIn,
     [Endpoints.signup]: authHandler.signUp,
+    [Endpoints.getUser]: authHandler.getUser,
 
     [Endpoints.listPosts]: postHandler.list,
     [Endpoints.getPost]: postHandler.get,

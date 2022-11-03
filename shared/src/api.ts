@@ -39,6 +39,11 @@ export type SignInResponse = {
   jwt: string;
 };
 
+export interface GetUserRequest {}
+export type GetUserResponse = {
+  user: Pick<User, "email" | "firstName" | "lastName" | "id" | "userName">;
+};
+
 // Likes APIs
 export interface AddLikeRequest {}
 export interface AddLikeResponse {}

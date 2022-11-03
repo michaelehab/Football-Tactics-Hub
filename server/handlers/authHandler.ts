@@ -1,4 +1,6 @@
 import {
+  GetUserRequest,
+  GetUserResponse,
   SignInRequest,
   SignInResponse,
   SignUpRequest,
@@ -9,7 +11,7 @@ import crypto from 'crypto';
 
 import { signJwt } from '../auth';
 import { DataStore } from '../datastore';
-import { ExpressHandler } from '../types';
+import { ExpressHandler, ExpressHandlerWithParams } from '../types';
 import { getPasswordHashed, validateEmail } from '../utils';
 
 export class AuthHandler {
@@ -78,4 +80,24 @@ export class AuthHandler {
       jwt: signJwt({ userId: existingUser.id }),
     });
   };
+
+  public getUser: ExpressHandlerWithParams<{ userId: string }, GetUserRequest, GetUserResponse> =
+    async (req, res) => {
+      if (!req.params.userId) {
+        return res.status(400).send({ error: 'UserId is required but missing' });
+      }
+      const existing = await this.db.getUserById(req.params.userId);
+      if (!existing) {
+        return res.sendStatus(404);
+      }
+      return res.status(200).send({
+        user: {
+          id: existing.id,
+          firstName: existing.firstName,
+          lastName: existing.lastName,
+          userName: existing.userName,
+          email: existing.email,
+        },
+      });
+    };
 }

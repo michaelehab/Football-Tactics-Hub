@@ -5,6 +5,7 @@ import {
   ListPostsResponse,
 } from "@footballtacticshub/shared";
 import { callEndpoint } from "../client";
+import { PostCard } from "../components/postCard";
 
 export const ListPosts = () => {
   const { url, method } = ENDPOINT_CONFIGS.listPosts;
@@ -21,8 +22,8 @@ export const ListPosts = () => {
 
   return (
     <div>
-      Posts:
-      {!!data?.posts && <div>{JSON.stringify(data.posts)}</div>}
+      {!!data?.posts &&
+        data.posts.map((post, i) => <PostCard key={i} {...post} />)}
     </div>
   );
 };
