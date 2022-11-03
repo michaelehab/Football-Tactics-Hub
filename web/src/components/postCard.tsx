@@ -1,4 +1,5 @@
-import { Flex, Box, Text, Button } from "@chakra-ui/react";
+import { Flex, Box, Text, Button, Center } from "@chakra-ui/react";
+import { format } from "timeago.js";
 import {
   CountPostCommentsRequest,
   CountPostCommentsResponse,
@@ -30,19 +31,24 @@ export const PostCard: React.FC<Post> = (post) => {
     )
   );
   return (
-    <Box>
-      <Flex gap={3}>
-        <Text fontSize="md" fontWeight="bold" color="#096A2E">
-          {post.title}
-        </Text>
-        <Text color="#ADBFB8">{post.url}</Text>
-        <Link to={`/post/${post.id}`}>
-          <Button height={7} variant="outline" color="#ADBFB8">
-            {data?.comments ?? 0} Comments
-          </Button>
-        </Link>
-      </Flex>
-      <Text>{user?.user.userName}</Text>
-    </Box>
+    <Center>
+      <Box margin={2}>
+        <Flex gap={3}>
+          <Text fontSize="md" fontWeight="bold" color="#096A2E">
+            {post.title}
+          </Text>
+          <Text color="#ADBFB8">{post.url}</Text>
+          <Link to={`/post/${post.id}`}>
+            <Button height={7} variant="outline" color="#ADBFB8">
+              {data?.comments ?? 0} Comments
+            </Button>
+          </Link>
+        </Flex>
+        <Flex gap={3}>
+          <Text color="#31C48D">{user?.user.userName}</Text>
+          <Text>{format(post.postedAt, "en_US")}</Text>
+        </Flex>
+      </Box>
+    </Center>
   );
 };
