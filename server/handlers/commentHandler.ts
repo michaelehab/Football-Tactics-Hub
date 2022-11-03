@@ -1,5 +1,4 @@
 import { Comment } from '@footballtacticshub/shared';
-
 import {
   CountPostCommentsRequest,
   CountPostCommentsResponse,
@@ -9,80 +8,89 @@ import {
   DeleteCommentResponse,
   ListCommentsRequest,
   ListCommentsResponse,
-} from '../api';
-import { db } from '../datastore';
+} from '@footballtacticshub/shared';
+
+import { DataStore, db } from '../datastore';
 import { ExpressHandlerWithParams } from '../types';
 
 const crypto = require('crypto');
 
-export const listCommentsHandler: ExpressHandlerWithParams<
-  { postId: string },
-  ListCommentsRequest,
-  ListCommentsResponse
-> = async (req, res) => {
-  if (!req.params.postId) {
-    return res.status(400).send({ error: 'PostId is required but missing' });
-  }
-  return res.send({ comments: await db.listComments(req.params.postId) });
-};
+export class CommentHandler {
+  private db: DataStore;
 
-export const createCommentHandler: ExpressHandlerWithParams<
-  { postId: string },
-  CreateCommentRequest,
-  CreateCommentResponse
-> = async (req, res) => {
-  if (!req.params.postId) {
-    return res.status(400).send({ error: 'PostId is required but missing' });
+  constructor(db: DataStore) {
+    this.db = db;
   }
 
-  if (!req.body.comment || req.body.comment == '') {
-    return res.status(400).send({ error: 'Comment cannot be empty' });
-  }
-
-  const comment: Comment = {
-    id: crypto.randomBytes(20).toString('hex'),
-    comment: req.body.comment,
-    userId: res.locals.userId,
-    postId: req.params.postId,
-    postedAt: Date.now(),
+  public list: ExpressHandlerWithParams<
+    { postId: string },
+    ListCommentsRequest,
+    ListCommentsResponse
+  > = async (req, res) => {
+    if (!req.params.postId) {
+      return res.status(400).send({ error: 'PostId is required but missing' });
+    }
+    return res.send({ comments: await this.db.listComments(req.params.postId) });
   };
 
-  await db.createComment(comment);
-  res.sendStatus(200);
-};
+  public create: ExpressHandlerWithParams<
+    { postId: string },
+    CreateCommentRequest,
+    CreateCommentResponse
+  > = async (req, res) => {
+    if (!req.params.postId) {
+      return res.status(400).send({ error: 'PostId is required but missing' });
+    }
 
-export const deleteCommentHandler: ExpressHandlerWithParams<
-  { commentId: string },
-  DeleteCommentRequest,
-  DeleteCommentResponse
-> = async (req, res) => {
-  if (!req.params.commentId) {
-    return res.status(400).send({ error: 'CommentId is required but missing' });
-  }
+    if (!req.body.comment || req.body.comment == '') {
+      return res.status(400).send({ error: 'Comment cannot be empty' });
+    }
 
-  const existing = await db.getCommentById(req.params.commentId);
+    const comment: Comment = {
+      id: crypto.randomBytes(20).toString('hex'),
+      comment: req.body.comment,
+      userId: res.locals.userId,
+      postId: req.params.postId,
+      postedAt: Date.now(),
+    };
 
-  if (!existing) {
-    return res.status(400).send({ error: 'Comment does not exist' });
-  }
+    await this.db.createComment(comment);
+    res.sendStatus(200);
+  };
 
-  if (existing.userId !== res.locals.userId) {
-    return res.sendStatus(401);
-  }
+  public delete: ExpressHandlerWithParams<
+    { commentId: string },
+    DeleteCommentRequest,
+    DeleteCommentResponse
+  > = async (req, res) => {
+    if (!req.params.commentId) {
+      return res.status(400).send({ error: 'CommentId is required but missing' });
+    }
 
-  await db.deleteComment(req.params.commentId);
-  return res.sendStatus(200);
-};
+    const existing = await this.db.getCommentById(req.params.commentId);
 
-export const countPostCommentsHandler: ExpressHandlerWithParams<
-  { postId: string },
-  CountPostCommentsRequest,
-  CountPostCommentsResponse
-> = async (req, res) => {
-  if (!req.params.postId) {
-    return res.status(400).send({ error: 'PostId is required but missing' });
-  }
+    if (!existing) {
+      return res.status(400).send({ error: 'Comment does not exist' });
+    }
 
-  const numberOfComments = await db.countComments(req.params.postId);
-  return res.status(200).send({ comments: numberOfComments });
-};
+    if (existing.userId !== res.locals.userId) {
+      return res.sendStatus(401);
+    }
+
+    await this.db.deleteComment(req.params.commentId);
+    return res.sendStatus(200);
+  };
+
+  public count: ExpressHandlerWithParams<
+    { postId: string },
+    CountPostCommentsRequest,
+    CountPostCommentsResponse
+  > = async (req, res) => {
+    if (!req.params.postId) {
+      return res.status(400).send({ error: 'PostId is required but missing' });
+    }
+
+    const numberOfComments = await this.db.countComments(req.params.postId);
+    return res.status(200).send({ comments: numberOfComments });
+  };
+}

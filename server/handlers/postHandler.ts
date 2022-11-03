@@ -1,5 +1,4 @@
 import { Post } from '@footballtacticshub/shared';
-
 import {
   CreatePostRequest,
   CreatePostResponse,
@@ -9,73 +8,72 @@ import {
   GetPostResponse,
   ListPostRequest,
   ListPostResponse,
-} from '../api';
-import { db } from '../datastore';
+} from '@footballtacticshub/shared';
+
+import { DataStore, db } from '../datastore';
 import { ExpressHandler, ExpressHandlerWithParams } from '../types';
 
 const crypto = require('crypto');
 
-export const listPostsHandler: ExpressHandler<ListPostRequest, ListPostResponse> = async (
-  req,
-  res
-) => {
-  return res.send({ posts: await db.listPosts() });
-};
+export class PostHandler {
+  private db: DataStore;
 
-export const createPostHandler: ExpressHandler<CreatePostRequest, CreatePostResponse> = async (
-  req,
-  res
-) => {
-  if (!req.body.title) {
-    return res.status(400).send({ error: 'Title field is required but missing' });
+  constructor(db: DataStore) {
+    this.db = db;
   }
 
-  if (!req.body.url) {
-    return res.status(400).send({ error: 'Url field is required but missing' });
-  }
-
-  const post: Post = {
-    id: crypto.randomBytes(20).toString('hex'),
-    title: req.body.title,
-    url: req.body.url,
-    userId: res.locals.userId,
-    postedAt: Date.now(),
+  public list: ExpressHandler<ListPostRequest, ListPostResponse> = async (req, res) => {
+    return res.send({ posts: await this.db.listPosts() });
   };
 
-  await db.createPost(post);
-  res.sendStatus(200);
-};
+  public create: ExpressHandler<CreatePostRequest, CreatePostResponse> = async (req, res) => {
+    if (!req.body.title) {
+      return res.status(400).send({ error: 'Title field is required but missing' });
+    }
 
-export const getPostHandler: ExpressHandlerWithParams<
-  { id: string },
-  GetPostRequest,
-  GetPostResponse
-> = async (req, res) => {
-  if (!req.params.id) {
-    return res.sendStatus(400);
-  }
+    if (!req.body.url) {
+      return res.status(400).send({ error: 'Url field is required but missing' });
+    }
 
-  const post = await db.getPost(req.params.id);
-  if (!post) {
-    return res.sendStatus(404);
-  }
+    const post: Post = {
+      id: crypto.randomBytes(20).toString('hex'),
+      title: req.body.title,
+      url: req.body.url,
+      userId: res.locals.userId,
+      postedAt: Date.now(),
+    };
 
-  return res.send({ post: post });
-};
+    await this.db.createPost(post);
+    res.sendStatus(200);
+  };
 
-export const deletePostHandler: ExpressHandlerWithParams<
-  { id: string },
-  DeletePostRequest,
-  DeletePostResponse
-> = async (req, res) => {
-  if (!req.params.id) {
-    return res.status(400).send({ error: 'Post id is missing' });
-  }
-  const post = await db.getPost(req.params.id);
-  if (!post || post.userId != res.locals.userId) {
-    return res.sendStatus(401);
-  }
+  public get: ExpressHandlerWithParams<{ id: string }, GetPostRequest, GetPostResponse> = async (
+    req,
+    res
+  ) => {
+    if (!req.params.id) {
+      return res.sendStatus(400);
+    }
 
-  await db.deletePost(post.id);
-  return res.sendStatus(200);
-};
+    const post = await this.db.getPost(req.params.id);
+    if (!post) {
+      return res.sendStatus(404);
+    }
+
+    return res.send({ post: post });
+  };
+
+  public delete: ExpressHandlerWithParams<{ id: string }, DeletePostRequest, DeletePostResponse> =
+    async (req, res) => {
+      if (!req.params.id) {
+        return res.status(400).send({ error: 'Post id is missing' });
+      }
+      const post = await this.db.getPost(req.params.id);
+      if (!post || post.userId != res.locals.userId) {
+        return res.sendStatus(401);
+      }
+
+      await this.db.deletePost(post.id);
+      return res.sendStatus(200);
+    };
+}

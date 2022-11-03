@@ -1,8 +1,7 @@
-import { Comment, Post, User } from '@footballtacticshub/shared';
-import { JsonWebTokenError } from 'jsonwebtoken';
+import { Comment, Post, User } from "./types";
 
 // Post APIs
-export type CreatePostRequest = Pick<Post, 'title' | 'url'>;
+export type CreatePostRequest = Pick<Post, "title" | "url">;
 export interface CreatePostResponse {}
 
 export interface ListPostRequest {}
@@ -23,7 +22,7 @@ export interface DeletePostResponse {}
 // Users APIs
 export type SignUpRequest = Pick<
   User,
-  'email' | 'firstName' | 'lastName' | 'password' | 'userName'
+  "email" | "firstName" | "lastName" | "password" | "userName"
 >;
 
 export interface SignUpResponse {
@@ -36,7 +35,7 @@ export interface SignInRequest {
 }
 
 export type SignInResponse = {
-  user: Pick<User, 'email' | 'firstName' | 'lastName' | 'id' | 'userName'>;
+  user: Pick<User, "email" | "firstName" | "lastName" | "id" | "userName">;
   jwt: string;
 };
 
@@ -53,7 +52,7 @@ export interface DeleteLikeRequest {}
 export interface DeleteLikeResponse {}
 
 // Comments APIs
-export type CreateCommentRequest = Pick<Comment, 'comment'>;
+export type CreateCommentRequest = Pick<Comment, "comment">;
 export interface CreateCommentResponse {
   comment: Comment;
 }

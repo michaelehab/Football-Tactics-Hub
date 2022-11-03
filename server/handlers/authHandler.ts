@@ -1,64 +1,81 @@
 import { User } from '@footballtacticshub/shared';
+import {
+  SignInRequest,
+  SignInResponse,
+  SignUpRequest,
+  SignUpResponse,
+} from '@footballtacticshub/shared';
 import crypto from 'crypto';
 
-import { SignInRequest, SignInResponse, SignUpRequest, SignUpResponse } from '../api';
 import { signJwt } from '../auth';
-import { db } from '../datastore';
+import { DataStore, db } from '../datastore';
 import { ExpressHandler } from '../types';
 import { getPasswordHashed, validateEmail } from '../utils';
 
-export const SignUpHandler: ExpressHandler<SignUpRequest, SignUpResponse> = async (req, res) => {
-  const { email, firstName, lastName, userName, password } = req.body;
-  if (!email || !firstName || !lastName || !password || !userName) {
-    return res.status(400).send({ error: 'All Fields are required' });
+export class AuthHandler {
+  private db: DataStore;
+
+  constructor(db: DataStore) {
+    this.db = db;
   }
 
-  if (!validateEmail(email)) {
-    res.status(400).send({ error: 'email is invalid' });
-  }
+  public signUp: ExpressHandler<SignUpRequest, SignUpResponse> = async (req, res) => {
+    const { email, firstName, lastName, userName, password } = req.body;
+    if (!email || !firstName || !lastName || !password || !userName) {
+      return res.status(400).send({ error: 'All Fields are required' });
+    }
 
-  const existingUser = (await db.getUserByEmail(email)) || (await db.getUserByUsername(userName));
+    if (!validateEmail(email)) {
+      res.status(400).send({ error: 'email is invalid' });
+    }
 
-  if (existingUser) {
-    return res.status(403).send({ error: 'User already exists' });
-  }
+    const existingUser =
+      (await this.db.getUserByEmail(email)) || (await this.db.getUserByUsername(userName));
 
-  const usr: User = {
-    id: crypto.randomBytes(20).toString('hex'),
-    firstName,
-    lastName,
-    userName,
-    password: getPasswordHashed(password),
-    email,
+    if (existingUser) {
+      return res.status(403).send({ error: 'User already exists' });
+    }
+
+    const usr: User = {
+      id: crypto.randomBytes(20).toString('hex'),
+      firstName,
+      lastName,
+      userName,
+      password: getPasswordHashed(password),
+      email,
+    };
+
+    await this.db.createUser(usr);
+    return res.status(200).send({
+      jwt: signJwt({ userId: usr.id }),
+    });
   };
 
-  await db.createUser(usr);
-  return res.status(200).send({
-    jwt: signJwt({ userId: usr.id }),
-  });
-};
+  public signIn: ExpressHandler<SignInRequest, SignInResponse> = async (req, res) => {
+    const { login, password } = req.body;
 
-export const SignInHandler: ExpressHandler<SignInRequest, SignInResponse> = async (req, res) => {
-  const { login, password } = req.body;
+    if (!login || !password) {
+      return res.status(400).send({ error: 'All Fields are required' });
+    }
 
-  if (!login || !password) {
-    return res.status(400).send({ error: 'All Fields are required' });
-  }
+    let existingUser;
 
-  const existingUser = (await db.getUserByEmail(login)) || (await db.getUserByUsername(login));
+    if (validateEmail(login)) existingUser = await this.db.getUserByEmail(login);
+    else existingUser = await this.db.getUserByUsername(login);
 
-  if (!existingUser || existingUser.password !== getPasswordHashed(password)) {
-    return res.status(403).send({ error: 'Wrong Credentials' });
-  }
+    if (!existingUser || existingUser.password !== getPasswordHashed(password)) {
+      return res.status(403).send({ error: 'Wrong Credentials' });
+    }
 
-  return res.status(200).send({
-    user: {
-      id: existingUser.id,
-      email: existingUser.email,
-      firstName: existingUser.firstName,
-      lastName: existingUser.lastName,
-      userName: existingUser.userName,
-    },
-    jwt: signJwt({ userId: existingUser.id }),
-  });
-};
+    return res.status(200).send({
+      user: {
+        id: existingUser.id,
+        email: existingUser.email,
+        firstName: existingUser.firstName,
+        lastName: existingUser.lastName,
+        userName: existingUser.userName,
+      },
+      jwt: signJwt({ userId: existingUser.id }),
+    });
+  };
+}
