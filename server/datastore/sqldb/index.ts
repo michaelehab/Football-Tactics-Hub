@@ -47,20 +47,34 @@ export class SQLDataStore implements DataStore {
     return this.db.get<User>('SELECT * FROM users WHERE userName = ?', userName);
   }
 
-  createLike(like: Like): Promise<void> {
-    throw new Error('Method not implemented.');
+  async createLike(like: Like): Promise<void> {
+    await this.db.run('INSERT INTO likes(userId, postId) VALUES (?, ?)', like.userId, like.postId);
   }
 
-  deleteLike(like: Like): Promise<void> {
-    throw new Error('Method not implemented.');
+  async deleteLike(like: Like): Promise<void> {
+    await this.db.run(
+      'DELETE FROM likes WHERE userId = ? and postId = ?',
+      like.userId,
+      like.postId
+    );
   }
 
-  getLikes(postId: string): Promise<number> {
-    throw new Error('Method not implemented.');
+  async getLikes(postId: string): Promise<number> {
+    const result = await this.db.get<{ likesCount: number }>(
+      'SELECT COUNT(*) as likesCount FROM likes WHERE postId = ?',
+      postId
+    );
+    return result == undefined ? 0 : result.likesCount;
   }
 
-  exists(like: Like): Promise<boolean> {
-    throw new Error('Method not implemented.');
+  async exists(like: Like): Promise<boolean> {
+    const checkLikeExist = await this.db.get<Number>(
+      'Select 1 FROM likes WHERE postId = ? and userId = ?',
+      like.postId,
+      like.userId
+    );
+
+    return checkLikeExist !== undefined;
   }
 
   createComment(comment: Comment): Promise<void> {
@@ -99,7 +113,7 @@ export class SQLDataStore implements DataStore {
   }
 
   getPostByUrl(url: string): Promise<Post | undefined> {
-    throw new Error('Method not implemented.');
+    return this.db.get<Post>('SELECT * FROM posts WHERE url = ?', url);
   }
 
   async deletePost(id: string): Promise<void> {
