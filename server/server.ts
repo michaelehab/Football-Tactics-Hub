@@ -32,6 +32,8 @@ import { loggerMiddleWare } from './middleware/loggerMiddleware';
 
   app.use(loggerMiddleWare);
 
+  app.get('/healthz', (req, res) => res.send({ status: 'OK' }));
+
   app.post('/api/v1/signup', AsyncHandler(SignUpHandler));
 
   app.post('/api/v1/signin', AsyncHandler(SignInHandler));
@@ -62,5 +64,5 @@ import { loggerMiddleWare } from './middleware/loggerMiddleware';
 
   app.use(errorMiddleware);
 
-  app.listen(3000);
+  app.listen(process.env.PORT || 3000);
 })();
