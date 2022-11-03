@@ -35,16 +35,16 @@ export class SQLDataStore implements DataStore {
     );
   }
 
-  getUserById(id: string): Promise<User | undefined> {
-    return this.db.get<User>('SELECT * FROM users WHERE id = ?', id);
+  async getUserById(id: string): Promise<User | undefined> {
+    return await this.db.get<User>('SELECT * FROM users WHERE id = ?', id);
   }
 
-  getUserByEmail(email: string): Promise<User | undefined> {
-    return this.db.get<User>('SELECT * FROM users WHERE email = ?', email);
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    return await this.db.get<User>('SELECT * FROM users WHERE email = ?', email);
   }
 
-  getUserByUsername(userName: string): Promise<User | undefined> {
-    return this.db.get<User>('SELECT * FROM users WHERE userName = ?', userName);
+  async getUserByUsername(userName: string): Promise<User | undefined> {
+    return await this.db.get<User>('SELECT * FROM users WHERE userName = ?', userName);
   }
 
   async createLike(like: Like): Promise<void> {
@@ -77,24 +77,35 @@ export class SQLDataStore implements DataStore {
     return checkLikeExist !== undefined;
   }
 
-  createComment(comment: Comment): Promise<void> {
-    throw new Error('Method not implemented.');
+  async createComment(comment: Comment): Promise<void> {
+    await this.db.run(
+      'INSERT INTO comments(id, userId, postId, comment, postedAt) VALUES (?, ?, ?, ?, ?)',
+      comment.id,
+      comment.userId,
+      comment.postId,
+      comment.comment,
+      comment.postedAt
+    );
   }
 
-  countComments(postId: string): Promise<number> {
-    throw new Error('Method not implemented.');
+  async countComments(postId: string): Promise<number> {
+    const result = await this.db.get<{ commentsCount: number }>(
+      'SELECT COUNT(*) as commentsCount FROM comments WHERE postId = ?',
+      postId
+    );
+    return result == undefined ? 0 : result.commentsCount;
   }
 
-  listComments(postId: string): Promise<Comment[]> {
-    throw new Error('Method not implemented.');
+  async listComments(postId: string): Promise<Comment[]> {
+    return await this.db.all<Comment[]>('SELECT * FROM comments WHERE postId = ?', postId);
   }
 
-  deleteComment(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async deleteComment(id: string): Promise<void> {
+    await this.db.run('DELETE FROM comments WHERE id = ?', id);
   }
 
-  listPosts(): Promise<Post[]> {
-    return this.db.all<Post[]>('SELECT * FROM posts');
+  async listPosts(): Promise<Post[]> {
+    return await this.db.all<Post[]>('SELECT * FROM posts');
   }
 
   async createPost(post: Post): Promise<void> {
@@ -108,12 +119,12 @@ export class SQLDataStore implements DataStore {
     );
   }
 
-  getPost(id: string): Promise<Post | undefined> {
-    return this.db.get<Post>('SELECT * FROM posts WHERE id = ?', id);
+  async getPost(id: string): Promise<Post | undefined> {
+    return await this.db.get<Post>('SELECT * FROM posts WHERE id = ?', id);
   }
 
-  getPostByUrl(url: string): Promise<Post | undefined> {
-    return this.db.get<Post>('SELECT * FROM posts WHERE url = ?', url);
+  async getPostByUrl(url: string): Promise<Post | undefined> {
+    return await this.db.get<Post>('SELECT * FROM posts WHERE url = ?', url);
   }
 
   async deletePost(id: string): Promise<void> {
