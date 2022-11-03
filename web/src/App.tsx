@@ -1,24 +1,14 @@
-import { listPosts } from "./client";
-import { useQuery } from "@tanstack/react-query";
-import { ListPostResponse } from "@footballtacticshub/shared";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { GetPost } from "./pages/getPost";
+import { ListPosts } from "./pages/listPosts";
 
 export const App = () => {
-  const { data, error, isLoading } = useQuery<ListPostResponse>(
-    ["listPosts"],
-    listPosts
-  );
-
-  if (isLoading) {
-    return <div>Is Loading...</div>;
-  }
-  if (error) {
-    return <div>Error loading posts!</div>;
-  }
-
   return (
-    <div>
-      Posts:
-      {!!data?.posts && <div>{JSON.stringify(data.posts)}</div>}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ListPosts />} />
+        <Route path="/post/:id" element={<GetPost />} />
+      </Routes>
+    </BrowserRouter>
   );
 };

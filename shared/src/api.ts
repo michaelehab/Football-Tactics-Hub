@@ -4,8 +4,8 @@ import { Comment, Post, User } from "./types";
 export type CreatePostRequest = Pick<Post, "title" | "url">;
 export interface CreatePostResponse {}
 
-export interface ListPostRequest {}
-export interface ListPostResponse {
+export interface ListPostsRequest {}
+export interface ListPostsResponse {
   posts: Post[];
 }
 

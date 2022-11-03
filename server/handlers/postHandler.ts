@@ -5,8 +5,8 @@ import {
   DeletePostResponse,
   GetPostRequest,
   GetPostResponse,
-  ListPostRequest,
-  ListPostResponse,
+  ListPostsRequest,
+  ListPostsResponse,
   Post,
 } from '@footballtacticshub/shared';
 
@@ -22,7 +22,7 @@ export class PostHandler {
     this.db = db;
   }
 
-  public list: ExpressHandler<ListPostRequest, ListPostResponse> = async (req, res) => {
+  public list: ExpressHandler<ListPostsRequest, ListPostsResponse> = async (req, res) => {
     return res.send({ posts: await this.db.listPosts() });
   };
 
