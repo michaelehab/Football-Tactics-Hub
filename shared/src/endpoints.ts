@@ -1,4 +1,4 @@
-export type EndpointConfiguration = {
+export type Endpoint = {
   url: string;
   method: "get" | "post" | "delete";
   auth?: boolean;
@@ -25,7 +25,7 @@ export enum Endpoints {
   countComments = "countComments",
 }
 
-export const ENDPOINT_CONFIGS: { [key in Endpoints]: EndpointConfiguration } = {
+export const ENDPOINT_CONFIGS: { [key in Endpoints]: Endpoint } = {
   [Endpoints.healthz]: { method: "get", url: "/api/v1/healthz" },
 
   [Endpoints.signin]: { method: "post", url: "/api/v1/signin" },

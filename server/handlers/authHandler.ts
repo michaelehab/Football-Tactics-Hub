@@ -1,14 +1,14 @@
-import { User } from '@footballtacticshub/shared';
 import {
   SignInRequest,
   SignInResponse,
   SignUpRequest,
   SignUpResponse,
+  User,
 } from '@footballtacticshub/shared';
 import crypto from 'crypto';
 
 import { signJwt } from '../auth';
-import { DataStore, db } from '../datastore';
+import { DataStore } from '../datastore';
 import { ExpressHandler } from '../types';
 import { getPasswordHashed, validateEmail } from '../utils';
 

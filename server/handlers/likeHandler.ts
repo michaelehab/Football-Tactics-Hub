@@ -1,4 +1,3 @@
-import { Like } from '@footballtacticshub/shared';
 import {
   AddLikeRequest,
   AddLikeResponse,
@@ -6,9 +5,9 @@ import {
   CountPostLikesResponse,
   DeleteLikeRequest,
   DeleteLikeResponse,
+  Like,
 } from '@footballtacticshub/shared';
 
-import { db } from '../datastore';
 import { DataStore } from '../datastore';
 import { ExpressHandlerWithParams } from '../types';
 

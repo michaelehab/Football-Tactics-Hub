@@ -1,5 +1,5 @@
-import { Comment } from '@footballtacticshub/shared';
 import {
+  Comment,
   CountPostCommentsRequest,
   CountPostCommentsResponse,
   CreateCommentRequest,
@@ -10,7 +10,7 @@ import {
   ListCommentsResponse,
 } from '@footballtacticshub/shared';
 
-import { DataStore, db } from '../datastore';
+import { DataStore } from '../datastore';
 import { ExpressHandlerWithParams } from '../types';
 
 const crypto = require('crypto');
