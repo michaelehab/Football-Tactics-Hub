@@ -1,6 +1,6 @@
 import { JsonWebTokenError } from 'jsonwebtoken';
 
-import { Post, User } from './types';
+import { Comment, Post, User } from './types';
 
 // Post APIs
 export type CreatePostRequest = Pick<Post, 'title' | 'url'>;
@@ -40,3 +40,32 @@ export type SignInResponse = {
   user: Pick<User, 'email' | 'firstName' | 'lastName' | 'id' | 'userName'>;
   jwt: string;
 };
+
+// Likes APIs
+export interface AddLikeRequest {}
+export interface AddLikeResponse {}
+
+export interface CountPostLikesRequest {}
+export interface CountPostLikesResponse {
+  likes: Number;
+}
+
+export interface DeleteLikeRequest {}
+export interface DeleteLikeResponse {}
+
+// Comments APIs
+export type CreateCommentRequest = Pick<Comment, 'comment' | 'postId'>;
+export interface CreateCommentResponse {
+  comment: Comment;
+}
+
+export interface ListCommentsRequest {}
+export interface ListCommentsResponse {
+  comments: Comment[];
+}
+
+export interface DeleteCommentRequest {}
+export interface DeleteCommentResponse {}
+
+export interface CountPostCommentsRequest {}
+export interface CountPostCommentsResponse {}

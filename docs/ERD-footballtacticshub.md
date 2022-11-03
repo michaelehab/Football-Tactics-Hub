@@ -83,22 +83,25 @@ encrypted and stored in the database.
 ```
 /posts/list [GET]
 /posts/new  [POST]
-/posts/:id  [GET]
-/posts/:id  [DELETE]
+/posts/:postId  [GET]
+/posts/:postId  [DELETE]
 ```
 
 **Likes**:
 
 ```
-/likes/new [POST]
+/likes/:postId [GET]
+/likes/:postId [POST]
+/likes/:postId [DELETE]
 ```
 
 **Comments**:
 
 ```
-/comments/new  [POST]
-/comments/list [GET]
-/comments/:id  [DELETE]
+/comments/:postId  [POST]
+/comments/:postId [GET]
+/comments/:commentId  [DELETE]
+/comments/:postId/count [GET]
 ```
 
 ## Clients
