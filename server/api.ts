@@ -1,6 +1,5 @@
+import { Comment, Post, User } from '@footballtacticshub/shared';
 import { JsonWebTokenError } from 'jsonwebtoken';
-
-import { Comment, Post, User } from './types';
 
 // Post APIs
 export type CreatePostRequest = Pick<Post, 'title' | 'url'>;

@@ -1,4 +1,4 @@
-import { Like } from '../../types';
+import { Like } from '@footballtacticshub/shared';
 
 export interface LikeDao {
   createLike(like: Like): Promise<void>;

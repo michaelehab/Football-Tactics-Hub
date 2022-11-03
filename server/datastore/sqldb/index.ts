@@ -1,9 +1,9 @@
+import { Comment, Like, Post, User } from '@footballtacticshub/shared';
 import path from 'path';
 import { Database, open as sqliteOpen } from 'sqlite';
 import sqlite3 from 'sqlite3';
 
 import { DataStore } from '..';
-import { Comment, Like, Post, User } from '../../types';
 
 export class SQLDataStore implements DataStore {
   private db!: Database<sqlite3.Database, sqlite3.Statement>;

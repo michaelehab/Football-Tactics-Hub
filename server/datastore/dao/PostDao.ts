@@ -1,4 +1,4 @@
-import { Post } from '../../types';
+import { Post } from '@footballtacticshub/shared';
 
 export interface PostDao {
   listPosts(): Promise<Post[]>;

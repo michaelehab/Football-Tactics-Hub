@@ -1,3 +1,5 @@
+import { Like } from '@footballtacticshub/shared';
+
 import {
   AddLikeRequest,
   AddLikeResponse,
@@ -7,7 +9,7 @@ import {
   DeleteLikeResponse,
 } from '../api';
 import { db } from '../datastore';
-import { ExpressHandlerWithParams, Like } from '../types';
+import { ExpressHandlerWithParams } from '../types';
 
 export const addLikeHandler: ExpressHandlerWithParams<
   { postId: string },

@@ -1,5 +1,6 @@
+import { Comment, Like, Post, User } from '@footballtacticshub/shared';
+
 import { DataStore } from '..';
-import { Comment, Like, Post, User } from '../../types';
 
 export class InMemoryDataStore implements DataStore {
   private users: User[] = [];

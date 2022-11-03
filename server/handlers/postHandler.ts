@@ -1,3 +1,5 @@
+import { Post } from '@footballtacticshub/shared';
+
 import {
   CreatePostRequest,
   CreatePostResponse,
@@ -9,7 +11,7 @@ import {
   ListPostResponse,
 } from '../api';
 import { db } from '../datastore';
-import { ExpressHandler, ExpressHandlerWithParams, Post } from '../types';
+import { ExpressHandler, ExpressHandlerWithParams } from '../types';
 
 const crypto = require('crypto');
 

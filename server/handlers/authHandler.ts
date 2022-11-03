@@ -1,9 +1,10 @@
+import { User } from '@footballtacticshub/shared';
 import crypto from 'crypto';
 
 import { SignInRequest, SignInResponse, SignUpRequest, SignUpResponse } from '../api';
 import { signJwt } from '../auth';
 import { db } from '../datastore';
-import { ExpressHandler, User } from '../types';
+import { ExpressHandler } from '../types';
 import { getPasswordHashed, validateEmail } from '../utils';
 
 export const SignUpHandler: ExpressHandler<SignUpRequest, SignUpResponse> = async (req, res) => {
