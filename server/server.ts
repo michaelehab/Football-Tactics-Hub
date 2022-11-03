@@ -1,4 +1,5 @@
 import { ENDPOINT_CONFIGS, Endpoints } from '@footballtacticshub/shared';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { RequestHandler } from 'express';
 import AsyncHandler from 'express-async-handler';
@@ -20,6 +21,7 @@ import { loggerMiddleWare } from './middleware/loggerMiddleware';
   const app = express();
 
   app.use(express.json());
+  app.use(cors());
 
   app.use(loggerMiddleWare);
 
