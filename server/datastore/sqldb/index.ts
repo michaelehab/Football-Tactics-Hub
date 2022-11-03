@@ -88,6 +88,10 @@ export class SQLDataStore implements DataStore {
     );
   }
 
+  async getCommentById(id: string): Promise<Comment | undefined> {
+    return await this.db.get<Comment>('SELECT * FROM comments WHERE id = ?', id);
+  }
+
   async countComments(postId: string): Promise<number> {
     const result = await this.db.get<{ commentsCount: number }>(
       'SELECT COUNT(*) as commentsCount FROM comments WHERE postId = ?',

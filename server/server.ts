@@ -4,6 +4,12 @@ import AsyncHandler from 'express-async-handler';
 
 import { initDb } from './datastore';
 import { SignInHandler, SignUpHandler } from './handlers/authHandler';
+import {
+  countPostCommentsHandler,
+  createCommentHandler,
+  deleteCommentHandler,
+  listCommentsHandler,
+} from './handlers/commentHandler';
 import { addLikeHandler, countPostLikesHandler, deleteLikeHandler } from './handlers/likeHandler';
 import {
   createPostHandler,
@@ -45,6 +51,14 @@ import { loggerMiddleWare } from './middleware/loggerMiddleware';
   app.post('/api/v1/likes/:postId', AsyncHandler(addLikeHandler));
 
   app.delete('/api/v1/likes/:postId', AsyncHandler(deleteLikeHandler));
+
+  app.get('/api/v1/comments/:postId', AsyncHandler(listCommentsHandler));
+
+  app.get('/api/v1/comments/:postId/count', AsyncHandler(countPostCommentsHandler));
+
+  app.post('/api/v1/comments/:postId', AsyncHandler(createCommentHandler));
+
+  app.delete('/api/v1/comments/:commentId', AsyncHandler(deleteCommentHandler));
 
   app.use(errorMiddleware);
 

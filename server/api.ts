@@ -54,7 +54,7 @@ export interface DeleteLikeRequest {}
 export interface DeleteLikeResponse {}
 
 // Comments APIs
-export type CreateCommentRequest = Pick<Comment, 'comment' | 'postId'>;
+export type CreateCommentRequest = Pick<Comment, 'comment'>;
 export interface CreateCommentResponse {
   comment: Comment;
 }
@@ -68,4 +68,6 @@ export interface DeleteCommentRequest {}
 export interface DeleteCommentResponse {}
 
 export interface CountPostCommentsRequest {}
-export interface CountPostCommentsResponse {}
+export interface CountPostCommentsResponse {
+  comments: number;
+}

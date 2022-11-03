@@ -88,4 +88,8 @@ export class InMemoryDataStore implements DataStore {
     this.posts.splice(index, 1);
     return Promise.resolve();
   }
+
+  getCommentById(id: string): Promise<Comment | undefined> {
+    throw new Error('Method not implemented.');
+  }
 }
