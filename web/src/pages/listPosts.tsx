@@ -4,13 +4,16 @@ import {
   ListPostsRequest,
   ListPostsResponse,
 } from "@footballtacticshub/shared";
-import { callEndpoint } from "../client";
+import { callEndpoint } from "../utils/callEndpoint";
 import { PostCard } from "../components/postCard";
+import { useTitle } from "../utils/useTitle";
 
 export const ListPosts = () => {
-  const { url, method } = ENDPOINT_CONFIGS.listPosts;
+  useTitle("Home");
   const { data, error, isLoading } = useQuery(["listPosts"], () =>
-    callEndpoint<ListPostsRequest, ListPostsResponse>(url, method, {})
+    callEndpoint<ListPostsRequest, ListPostsResponse>(
+      ENDPOINT_CONFIGS.listPosts
+    )
   );
 
   if (isLoading) {

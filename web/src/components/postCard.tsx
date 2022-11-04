@@ -9,25 +9,19 @@ import {
   Post,
 } from "@footballtacticshub/shared";
 import { Link } from "react-router-dom";
-import { callEndpoint } from "../client";
+import { callEndpoint, replaceParams } from "../utils/callEndpoint";
 import { useQuery } from "@tanstack/react-query";
 
 export const PostCard: React.FC<Post> = (post) => {
-  const { url, method } = ENDPOINT_CONFIGS.countComments;
-  const { data, error, isLoading } = useQuery([`count${post.id}Comments`], () =>
+  const { data } = useQuery([`count${post.id}Comments`], () =>
     callEndpoint<CountPostCommentsRequest, CountPostCommentsResponse>(
-      url.replace(":postId", post.id),
-      method,
-      {}
+      replaceParams(ENDPOINT_CONFIGS.countComments, post.id)
     )
   );
 
-  const { url: getUserUrl, method: getUserMethod } = ENDPOINT_CONFIGS.getUser;
   const { data: user } = useQuery([`get${post.id}User`], () =>
     callEndpoint<GetUserRequest, GetUserResponse>(
-      getUserUrl.replace(":userId", post.userId),
-      getUserMethod,
-      {}
+      replaceParams(ENDPOINT_CONFIGS.getUser, post.userId)
     )
   );
   return (
