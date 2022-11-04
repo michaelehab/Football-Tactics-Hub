@@ -136,7 +136,7 @@ Web app for sharing and discussing football tactics related posts
 #### GET /api/v1/posts
 
 - General: 
-  - Returns all the posts from the database (no pagination yet)
+  - Returns all the posts from the database (no pagination yet).
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/posts`
 
@@ -160,6 +160,27 @@ Web app for sharing and discussing football tactics related posts
             "postedAt": 1667581754581
         }
     ]
+}
+```
+
+#### GET /api/v1/posts/:id
+
+- General: 
+  - Returns a specific post using the post's id.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/posts/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498`
+
+  - Sample Response :<br>
+
+```json
+    {
+    "post": {
+            "id": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
+            "title": "Salah's wonderful goal against Man City!",
+            "url": "https://www.youtube.com/watch?v=iZ68OskGqow",
+            "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
+            "postedAt": 1667581754581
+        }
 }
 ```
 
