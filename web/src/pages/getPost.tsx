@@ -11,15 +11,18 @@ import { useQuery } from "@tanstack/react-query";
 import {
   CreateCommentRequest,
   CreateCommentResponse,
+  DeletePostRequest,
+  DeletePostResponse,
   ENDPOINT_CONFIGS,
   GetPostRequest,
   GetPostResponse,
   ListCommentsRequest,
   ListCommentsResponse,
 } from "@footballtacticshub/shared";
+import { useNavigate } from "react-router-dom";
 import { FormEvent, useCallback, useState } from "react";
 import { useParams } from "react-router";
-import { isLoggedIn } from "../utils/auth";
+import { getLocalStorageUserId, isLoggedIn } from "../utils/auth";
 import { callEndpoint, replaceParams } from "../utils/callEndpoint";
 import { CommentCard } from "../components/commentCard";
 import { PostCard } from "../components/postCard";
@@ -28,6 +31,9 @@ export const GetPost = () => {
   const { id } = useParams();
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const userId: string = getLocalStorageUserId();
 
   const { data: postData } = useQuery([`view${id}post`], () =>
     callEndpoint<GetPostRequest, GetPostResponse>(
@@ -43,18 +49,29 @@ export const GetPost = () => {
       )
   );
 
+  const deletePost = useCallback(
+    async (e: FormEvent | MouseEvent) => {
+      e.preventDefault();
+      await callEndpoint<DeletePostRequest, DeletePostResponse>(
+        replaceParams(ENDPOINT_CONFIGS.deletePost, postData?.post.id!)
+      );
+      navigate("/");
+    },
+    [navigate, postData]
+  );
+
   const addComment = useCallback(
     async (e: FormEvent | MouseEvent) => {
       e.preventDefault();
       if (comment === "") {
         setError("Comment can't be empty");
       } else {
-        const res = await callEndpoint<
-          CreateCommentRequest,
-          CreateCommentResponse
-        >(replaceParams(ENDPOINT_CONFIGS.createComment, id!), {
-          comment,
-        });
+        await callEndpoint<CreateCommentRequest, CreateCommentResponse>(
+          replaceParams(ENDPOINT_CONFIGS.createComment, id!),
+          {
+            comment,
+          }
+        );
         setComment("");
         refetchComments();
       }
@@ -69,7 +86,12 @@ export const GetPost = () => {
   return (
     <Center>
       <Flex direction="column">
-        <PostCard {...postData?.post!} />
+        <Flex align="center">
+          <PostCard {...postData?.post!} />
+          {!!(postData?.post.userId === userId) && (
+            <Button onClick={deletePost}>X</Button>
+          )}
+        </Flex>
         {!!commentsData &&
           commentsData.comments.map((c, i) => <CommentCard key={i} {...c} />)}
         {isLoggedIn() ? (

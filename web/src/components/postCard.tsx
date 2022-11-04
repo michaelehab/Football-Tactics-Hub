@@ -1,4 +1,10 @@
-import { Flex, Text, Button, Center } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Button,
+  Center,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 import { format } from "timeago.js";
 import {
   CountPostCommentsRequest,
@@ -26,12 +32,24 @@ export const PostCard: React.FC<Post> = (post) => {
   );
   return (
     <Center>
-      <Flex maxW="md" width={500} my={5} direction="column" margin={5}>
+      <Flex
+        maxW="md"
+        width={500}
+        my={5}
+        direction="column"
+        margin={5}
+        boxShadow="xl"
+        p="6"
+        rounded="md"
+        bg="white"
+      >
         <Flex gap={3} justifyContent="space-between">
           <Text fontSize="md" fontWeight="bold" color="#096A2E">
             {post.title}
           </Text>
-          <Text color="#ADBFB8">{post.url}</Text>
+          <ChakraLink color="#ADBFB8" href={post.url}>
+            {post.url}
+          </ChakraLink>
           <Link to={`/post/${post.id}`}>
             <Button height={7} variant="outline" color="#ADBFB8">
               {data?.comments ?? 0} Comments

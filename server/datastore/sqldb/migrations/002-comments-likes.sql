@@ -4,8 +4,8 @@ CREATE TABLE comments (
   postId    VARCHAR NOT NULL,
   comment   VARCHAR NOT NULL,
   postedAt  INTEGER NOT NULL,
-  FOREIGN KEY (userId) REFERENCES users (id),
-  FOREIGN KEY (PostId) REFERENCES posts (id)
+  FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE,
+  FOREIGN KEY (PostId) REFERENCES posts (id) ON DELETE CASCADE
 );
 
 CREATE TABLE likes (

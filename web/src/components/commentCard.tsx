@@ -33,10 +33,9 @@ export const CommentCard: React.FC<Comment> = (comment) => {
   const deleteComment = useCallback(
     async (e: FormEvent | MouseEvent) => {
       e.preventDefault();
-      const res = await callEndpoint<
-        DeleteCommentRequest,
-        DeleteCommentResponse
-      >(replaceParams(ENDPOINT_CONFIGS.deleteComment, comment.id));
+      await callEndpoint<DeleteCommentRequest, DeleteCommentResponse>(
+        replaceParams(ENDPOINT_CONFIGS.deleteComment, comment.id)
+      );
       setCommentText(strikeThrough(comment.comment));
       setCommentUser("");
     },
@@ -46,7 +45,17 @@ export const CommentCard: React.FC<Comment> = (comment) => {
   const userId: string = getLocalStorageUserId();
 
   return (
-    <Flex maxW="md" width={500} my={5} direction="column" margin={5}>
+    <Flex
+      maxW="md"
+      width={500}
+      my={5}
+      direction="column"
+      margin={5}
+      boxShadow="base"
+      p="6"
+      rounded="md"
+      bg="white"
+    >
       <Flex justifyContent="space-between">
         <Text fontSize="md" fontWeight="bold" color="#096A2E">
           {commentText}
