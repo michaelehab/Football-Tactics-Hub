@@ -115,7 +115,7 @@ export const PostCard: React.FC<Post> = (post) => {
             </Link>
             {post.url !== "NoLink" && (
               <ChakraLink color="#ADBFB8" href={post.url}>
-                - Link
+                Visit Link
               </ChakraLink>
             )}
           </Flex>

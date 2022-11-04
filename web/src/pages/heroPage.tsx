@@ -8,7 +8,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import Icon from "../assets/illustration.png";
+import Illustration from "../assets/illustration.png";
 
 export const Hero = () => {
   return (
@@ -20,7 +20,7 @@ export const Hero = () => {
         py={{ base: 10, md: 15 }}
       >
         <Flex align="center">
-          <Image src={Icon} height={{ sm: "10rem", lg: "15rem" }} />
+          <Image src={Illustration} height={{ sm: "10rem", lg: "15rem" }} />
         </Flex>
         <Heading
           fontWeight={600}

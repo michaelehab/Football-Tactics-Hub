@@ -14,7 +14,7 @@ export const NavBar = () => {
     navigate("/");
   }, [navigate]);
   return (
-    <Flex justify="space-between" margin={4} align="center">
+    <Flex justify="space-between" margin={4} align="center" p={2}>
       <Box>
         <Link to={"/"}>
           <Image src={Logo} height={10} />

@@ -113,7 +113,7 @@ export const PostView: React.FC<Post> = (post) => {
             </Text>
             {post.url !== "NoLink" && (
               <ChakraLink color="#ADBFB8" href={post.url}>
-                - Link
+                Visit Link
               </ChakraLink>
             )}
           </Flex>
