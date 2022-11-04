@@ -30,21 +30,21 @@ Web app for sharing and discussing football tactics related posts
   
   - User can use both his/her email and username to signin.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/signin -X POST -H "Content-Type: application/json" -d '{"login": "michaelehab", "password":"LMfUVfvS(+h(Z#PP}"`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signin -X POST -H "Content-Type: application/json" -d '{"login": "michaelehab", "password":"LMfUVfvS(+h(Z#PP}"'`
 
   - Sample Response :<br>
 
 ```json
     {
-    "user": {
-        "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
-        "email": "michael@email.com",
-        "firstName": "Michael",
-        "lastName": "Ehab",
-        "userName": "michaelehab"
-    },
-    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWEyNjg4YzM2ZjM1OTYyYzUzZTg4ZDU0ZDUyMGMyM2MxOGQ0M2U3IiwiaWF0IjoxNjY3NTg0OTUwLCJleHAiOjE2Njc3NTc3NTB9.iOxOOUf8OuGevVn7W2KmwQ17FiKhddOHTLXyHGKH8d4"
-}
+      "user": {
+          "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
+          "email": "michael@email.com",
+          "firstName": "Michael",
+          "lastName": "Ehab",
+          "userName": "michaelehab"
+      },
+      "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWEyNjg4YzM2ZjM1OTYyYzUzZTg4ZDU0ZDUyMGMyM2MxOGQ0M2U3IiwiaWF0IjoxNjY3NTg0OTUwLCJleHAiOjE2Njc3NTc3NTB9.iOxOOUf8OuGevVn7W2KmwQ17FiKhddOHTLXyHGKH8d4"
+    }
 ```
 
 #### POST /api/v1/signup
@@ -54,14 +54,14 @@ Web app for sharing and discussing football tactics related posts
   
   - Signs and sends a JWT token to the client.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP}"`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP}"'`
 
   - Sample Response :<br>
 
 ```json
     {
     "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWEyNjg4YzM2ZjM1OTYyYzUzZTg4ZDU0ZDUyMGMyM2MxOGQ0M2U3IiwiaWF0IjoxNjY3NTg0OTUwLCJleHAiOjE2Njc3NTc3NTB9.iOxOOUf8OuGevVn7W2KmwQ17FiKhddOHTLXyHGKH8d4"
-}
+    }
 ```
 
 #### GET /api/v1/user (Requires Auth)
@@ -117,20 +117,20 @@ Web app for sharing and discussing football tactics related posts
 
 ```json
     {
-    "user": {
-        "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
-        "firstName": "Michael",
-        "lastName": "Ehab",
-        "userName": "michaelehab",
-        "email": "michael@email.com"
-    },
-    "recentPosts": [],
-    "stats": {
-        "numberOfComments": 2,
-        "numberOfLikes": 1,
-        "numberOfPosts": 0
+      "user": {
+          "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
+          "firstName": "Michael",
+          "lastName": "Ehab",
+          "userName": "michaelehab",
+          "email": "michael@email.com"
+      },
+      "recentPosts": [],
+      "stats": {
+          "numberOfComments": 2,
+          "numberOfLikes": 1,
+          "numberOfPosts": 0
+      }
     }
-}
 ```
 
 #### GET /api/v1/posts
@@ -160,7 +160,7 @@ Web app for sharing and discussing football tactics related posts
             "postedAt": 1667581754581
         }
     ]
-}
+    }
 ```
 
 #### GET /api/v1/posts/:id
@@ -181,7 +181,39 @@ Web app for sharing and discussing football tactics related posts
             "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
             "postedAt": 1667581754581
         }
-}
+    }
 ```
+
+#### POST /api/v1/posts (Requires Auth)
+
+- General: 
+  - Adds a new post to the database.
+  
+  - Signs and sends a JWT token to the client.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -d '{"title": "Salah's wonderful goal against Man City!", "url": "https://www.youtube.com/watch?v=iZ68OskGqow"}'`
+
+  - Sample Response :<br>
+
+```json
+    {
+    "post": {
+            "id": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
+            "title": "Salah's wonderful goal against Man City!",
+            "url": "https://www.youtube.com/watch?v=iZ68OskGqow",
+            "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
+            "postedAt": 1667581754581
+        }
+    }
+```
+
+#### DELETE /api/v1/posts/:id
+
+- General: 
+  - Returns a specific post using the post's id.
+  
+  - Sample Request : <br>`curl -X DELETE http://localhost:3001/api/v1/posts/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H "Accept: application/json"`
+
+  - Sample Response : Status code 200 in case of successful deletion
 
 ### Client details: (React.js, TypeScript)
