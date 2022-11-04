@@ -216,4 +216,35 @@ Web app for sharing and discussing football tactics related posts
 
   - Sample Response : Status code 200 in case of successful deletion
 
+
+#### GET /api/v1/likes/:postId (Require Auth)
+
+- General: 
+  - Returns true if the signedIn user has a like on the post using the post's id.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}"`
+
+  - Sample Response :<br>
+
+```json
+    {
+        "exists": true
+    }
+```
+
+#### GET /api/v1/likes/count/:postId (Require Auth)
+
+- General: 
+  - Returns the number of likes on a post using the post's id.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/count/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}"`
+
+  - Sample Response :<br>
+
+```json
+    {
+        "likes": 23
+    }
+```
+
 ### Client details: (React.js, TypeScript)
