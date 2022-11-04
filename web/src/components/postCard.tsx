@@ -1,4 +1,4 @@
-import { Flex, Box, Text, Button, Center } from "@chakra-ui/react";
+import { Flex, Text, Button, Center } from "@chakra-ui/react";
 import { format } from "timeago.js";
 import {
   CountPostCommentsRequest,
@@ -26,8 +26,8 @@ export const PostCard: React.FC<Post> = (post) => {
   );
   return (
     <Center>
-      <Box margin={2}>
-        <Flex gap={3}>
+      <Flex maxW="md" width={500} my={5} direction="column" margin={5}>
+        <Flex gap={3} justifyContent="space-between">
           <Text fontSize="md" fontWeight="bold" color="#096A2E">
             {post.title}
           </Text>
@@ -42,7 +42,7 @@ export const PostCard: React.FC<Post> = (post) => {
           <Text color="#31C48D">{user?.user.userName}</Text>
           <Text>{format(post.postedAt, "en_US")}</Text>
         </Flex>
-      </Box>
+      </Flex>
     </Center>
   );
 };
