@@ -1,4 +1,6 @@
-![App Logo](./web/src/assets/logo/svg/logo-no-background.svg)
+<div align="center">
+  <img src="./web/src/assets/logo/svg/logo-no-background.svg" alt="Football Tactics Hub App Logo" height=250vh margin="auto"/>
+</div>
 
 ## Description
 
