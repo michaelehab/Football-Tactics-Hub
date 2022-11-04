@@ -343,4 +343,8 @@ Web app for sharing and discussing football tactics related posts
 
   - Sample Response : Status code 200 in case of successful comment deletion.
 
-### Client details: (React.js, TypeScript)
+### Client details: (React.js, TypeScript, Chakra UI)
+### Screenshots:
+![Home Page](https://user-images.githubusercontent.com/29122581/200072325-4971d341-d494-4ba1-b32b-f6b2b325a47c.png)
+![Post Comments](https://user-images.githubusercontent.com/29122581/200072358-8ffb722b-e185-4305-9683-7ef45975dc1b.png)
+![User Profile](https://user-images.githubusercontent.com/29122581/200072389-6cb6c3fe-e5ab-4811-b357-04ab831227cf.png)
