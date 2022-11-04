@@ -100,4 +100,20 @@ export class AuthHandler {
         },
       });
     };
+
+  public signedIn: ExpressHandler<GetUserRequest, GetUserResponse> = async (req, res) => {
+    const existing = await this.db.getUserById(res.locals.userId);
+    if (!existing) {
+      return res.sendStatus(400);
+    }
+    return res.status(200).send({
+      user: {
+        id: existing.id,
+        firstName: existing.firstName,
+        lastName: existing.lastName,
+        userName: existing.userName,
+        email: existing.email,
+      },
+    });
+  };
 }

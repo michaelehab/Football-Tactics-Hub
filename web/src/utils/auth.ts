@@ -4,14 +4,21 @@ import {
   SignInResponse,
   SignUpRequest,
   SignUpResponse,
+  GetUserRequest,
+  GetUserResponse,
 } from "@footballtacticshub/shared";
 
 import { callEndpoint } from "./callEndpoint";
 
 export const LOCAL_STORAGE_JWT = "jwtToken";
+export const LOCAL_STORAGE_UserID = "signedinuserid";
 
 export const getLocalStorageJWT = (): string => {
   return localStorage.getItem(LOCAL_STORAGE_JWT) || "";
+};
+
+export const getLocalStorageUserId = (): string => {
+  return localStorage.getItem(LOCAL_STORAGE_UserID) || "";
 };
 
 export const isLoggedIn = (): boolean => {
@@ -28,6 +35,7 @@ export const signIn = async (login: string, password: string) => {
     }
   );
   localStorage.setItem(LOCAL_STORAGE_JWT, res.jwt);
+  localStorage.setItem(LOCAL_STORAGE_UserID, res.user.id);
 };
 
 export const signUp = async (
@@ -52,4 +60,11 @@ export const signUp = async (
 
 export const signOut = () => {
   localStorage.removeItem(LOCAL_STORAGE_JWT);
+};
+
+export const getSignedInUser = async () => {
+  const res = await callEndpoint<GetUserRequest, GetUserResponse>(
+    ENDPOINT_CONFIGS.getSignedInUser
+  );
+  return res.user;
 };
