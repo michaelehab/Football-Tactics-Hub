@@ -3,12 +3,15 @@ import {
   Text,
   Button,
   Center,
+  Box,
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { format } from "timeago.js";
 import {
   CountPostCommentsRequest,
   CountPostCommentsResponse,
+  CountPostLikesRequest,
+  CountPostLikesResponse,
   ENDPOINT_CONFIGS,
   GetUserRequest,
   GetUserResponse,
@@ -30,37 +33,49 @@ export const PostCard: React.FC<Post> = (post) => {
       replaceParams(ENDPOINT_CONFIGS.getUser, post.userId)
     )
   );
+
+  const { data: postLikes } = useQuery([`get${post.id}LikesCount`], () =>
+    callEndpoint<CountPostLikesRequest, CountPostLikesResponse>(
+      replaceParams(ENDPOINT_CONFIGS.countLikes, post.id)
+    )
+  );
   return (
     <Center>
       <Flex
-        maxW="md"
-        width={500}
-        my={5}
+        maxW="6xl"
+        w={["sm", "xl", "4xl"]}
+        m={5}
         direction="column"
-        margin={5}
         boxShadow="xl"
         p="6"
         rounded="md"
         bg="white"
       >
-        <Flex gap={3} justifyContent="space-between">
-          <Text fontSize="md" fontWeight="bold" color="#096A2E">
-            {post.title}
-          </Text>
-          <ChakraLink color="#ADBFB8" href={post.url}>
-            {post.url}
-          </ChakraLink>
+        <Flex gap={3} justifyContent="space-between" align="center">
+          <Flex gap={2}>
+            <Text fontSize="md" fontWeight="bold" color="#096A2E">
+              {post.title}
+            </Text>
+            <Text color="#31C48D">-</Text>
+            <ChakraLink color="#ADBFB8" href={post.url}>
+              {post.url}
+            </ChakraLink>
+          </Flex>
           <Link to={`/post/${post.id}`}>
-            <Button height={7} variant="outline" color="#ADBFB8">
+            <Button variant="outline" color="#ADBFB8">
               {data?.comments ?? 0} Comments
             </Button>
           </Link>
         </Flex>
-        <Flex gap={3}>
-          <ChakraLink color="#31C48D" href={`/user/${user?.user.id}`}>
-            {user?.user.userName}
-          </ChakraLink>
-          <Text>{format(post.postedAt, "en_US")}</Text>
+        <Flex gap={3} justifyContent="space-between" align="center">
+          <Flex gap={2}>
+            <ChakraLink color="#31C48D" href={`/user/${user?.user.id}`}>
+              {user?.user.userName}
+            </ChakraLink>
+            <Text color="#31C48D">-</Text>
+            <Text color="#31C48D">{postLikes?.likes} Likes</Text>
+          </Flex>
+          <Text color="#31C48D">{format(post.postedAt, "en_US")}</Text>
         </Flex>
       </Flex>
     </Center>

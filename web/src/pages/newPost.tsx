@@ -1,4 +1,13 @@
-import { Box, Button, Flex, Input, Alert, AlertIcon } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  Alert,
+  AlertIcon,
+  Center,
+  Heading,
+} from "@chakra-ui/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -49,6 +58,9 @@ export const NewPost = () => {
 
   return (
     <form onSubmit={createPost}>
+      <Center>
+        <Heading color="#31C48D">New Post</Heading>
+      </Center>
       <Flex maxW="sm" mx="auto" my={10} direction="column" gap={3}>
         <Input
           placeholder="Post Title"

@@ -65,7 +65,7 @@ export interface AddLikeResponse {}
 
 export interface CountPostLikesRequest {}
 export interface CountPostLikesResponse {
-  likes: Number;
+  likes: number;
 }
 
 export interface DeleteLikeRequest {}
