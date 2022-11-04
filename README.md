@@ -1,16 +1,22 @@
 # Football Tactics Hub
+
 ## Description
+
 Web app for sharing and discussing football tactics related posts
+
 ## Server details: (Node.js, TypeScript)
+
 <ul>
 <li>Node.js app using Express.js</li>
 <li>Sqlite3 database</li>
 </ul>
 
 ### Server endpoints: <a href="./shared/src/endpoints.ts">more details here</a>
+
 #### GET /api/v1/healthz
 
-- General: 
+- General:
+
   - Returns status "OK" as long as the server is up and running.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/healthz`
@@ -18,55 +24,58 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
-    {
-        "status": "OK"
-    }
+{
+  "status": "OK"
+}
 ```
 
 #### POST /api/v1/signin
 
-- General: 
+- General:
+
   - Validates user data, signs and sends JWT token to the client.
-  
+
   - User can use both his/her email and username to signin.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/signin -X POST -H "Content-Type: application/json" -d '{"login": "michaelehab", "password":"LMfUVfvS(+h(Z#PP}"'`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signin -X POST -H "Content-Type: application/json" -d '{"login": "michaelehab", "password":"LMfUVfvS(+h(Z#PP}"}'`
 
   - Sample Response :<br>
 
 ```json
-    {
-      "user": {
-          "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
-          "email": "michael@email.com",
-          "firstName": "Michael",
-          "lastName": "Ehab",
-          "userName": "michaelehab"
-      },
-      "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWEyNjg4YzM2ZjM1OTYyYzUzZTg4ZDU0ZDUyMGMyM2MxOGQ0M2U3IiwiaWF0IjoxNjY3NTg0OTUwLCJleHAiOjE2Njc3NTc3NTB9.iOxOOUf8OuGevVn7W2KmwQ17FiKhddOHTLXyHGKH8d4"
-    }
+{
+  "user": {
+    "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
+    "email": "michael@email.com",
+    "firstName": "Michael",
+    "lastName": "Ehab",
+    "userName": "michaelehab"
+  },
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWEyNjg4YzM2ZjM1OTYyYzUzZTg4ZDU0ZDUyMGMyM2MxOGQ0M2U3IiwiaWF0IjoxNjY3NTg0OTUwLCJleHAiOjE2Njc3NTc3NTB9.iOxOOUf8OuGevVn7W2KmwQ17FiKhddOHTLXyHGKH8d4"
+}
 ```
 
 #### POST /api/v1/signup
 
-- General: 
+- General:
+
   - Registers a new user to the database.
-  
+
   - Signs and sends a JWT token to the client.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP}"'`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP}"}'`
 
   - Sample Response :<br>
 
 ```json
-    {
-    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWEyNjg4YzM2ZjM1OTYyYzUzZTg4ZDU0ZDUyMGMyM2MxOGQ0M2U3IiwiaWF0IjoxNjY3NTg0OTUwLCJleHAiOjE2Njc3NTc3NTB9.iOxOOUf8OuGevVn7W2KmwQ17FiKhddOHTLXyHGKH8d4"
-    }
+{
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWEyNjg4YzM2ZjM1OTYyYzUzZTg4ZDU0ZDUyMGMyM2MxOGQ0M2U3IiwiaWF0IjoxNjY3NTg0OTUwLCJleHAiOjE2Njc3NTc3NTB9.iOxOOUf8OuGevVn7W2KmwQ17FiKhddOHTLXyHGKH8d4"
+}
 ```
 
 #### GET /api/v1/user (Requires Auth)
 
-- General: 
+- General:
+
   - Returns the currently signed in user.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/user -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}"`
@@ -74,20 +83,21 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
-    {
-        "user": {
-          "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
-          "firstName": "Michael",
-          "lastName": "Ehab",
-          "userName": "michaelehab",
-          "email": "michael@email.com"
-          }
-    }
+{
+  "user": {
+    "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
+    "firstName": "Michael",
+    "lastName": "Ehab",
+    "userName": "michaelehab",
+    "email": "michael@email.com"
+  }
+}
 ```
 
 #### GET /api/v1/user/:id
 
-- General: 
+- General:
+
   - Returns a specific user using his/her id.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/user/daa2688c36f35962c53e88d54d520c23c18d43e7`
@@ -95,20 +105,21 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
-    {
-        "user": {
-          "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
-          "firstName": "Michael",
-          "lastName": "Ehab",
-          "userName": "michaelehab",
-          "email": "michael@email.com"
-          }
-    }
+{
+  "user": {
+    "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
+    "firstName": "Michael",
+    "lastName": "Ehab",
+    "userName": "michaelehab",
+    "email": "michael@email.com"
+  }
+}
 ```
 
 #### GET /api/v1/profile/:id
 
-- General: 
+- General:
+
   - Returns a specific user's profile (same as user but has some stats and recent posts) using his/her id.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/profile/daa2688c36f35962c53e88d54d520c23c18d43e7`
@@ -116,26 +127,27 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
-    {
-      "user": {
-          "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
-          "firstName": "Michael",
-          "lastName": "Ehab",
-          "userName": "michaelehab",
-          "email": "michael@email.com"
-      },
-      "recentPosts": [],
-      "stats": {
-          "numberOfComments": 2,
-          "numberOfLikes": 1,
-          "numberOfPosts": 0
-      }
-    }
+{
+  "user": {
+    "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
+    "firstName": "Michael",
+    "lastName": "Ehab",
+    "userName": "michaelehab",
+    "email": "michael@email.com"
+  },
+  "recentPosts": [],
+  "stats": {
+    "numberOfComments": 2,
+    "numberOfLikes": 1,
+    "numberOfPosts": 0
+  }
+}
 ```
 
 #### GET /api/v1/posts
 
-- General: 
+- General:
+
   - Returns all the posts from the database (no pagination yet).
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/posts`
@@ -143,29 +155,30 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
+{
+  "posts": [
     {
-    "posts": [
-        {
-            "id": "3cd7e84f49d9ffe7a55b69becc6e90f06a652b54",
-            "title": "Check this Arsenal tiki taka goal",
-            "url": "https://www.youtube.com/watch?v=qsPYfQyZZZ0",
-            "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
-            "postedAt": 1667581704506
-        },
-        {
-            "id": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
-            "title": "Salah's wonderful goal against Man City!",
-            "url": "https://www.youtube.com/watch?v=iZ68OskGqow",
-            "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
-            "postedAt": 1667581754581
-        }
-    ]
+      "id": "3cd7e84f49d9ffe7a55b69becc6e90f06a652b54",
+      "title": "Check this Arsenal tiki taka goal",
+      "url": "https://www.youtube.com/watch?v=qsPYfQyZZZ0",
+      "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
+      "postedAt": 1667581704506
+    },
+    {
+      "id": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
+      "title": "Salah's wonderful goal against Man City!",
+      "url": "https://www.youtube.com/watch?v=iZ68OskGqow",
+      "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
+      "postedAt": 1667581754581
     }
+  ]
+}
 ```
 
 #### GET /api/v1/posts/:id
 
-- General: 
+- General:
+
   - Returns a specific post using the post's id.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/posts/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498`
@@ -173,22 +186,23 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
-    {
-    "post": {
-            "id": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
-            "title": "Salah's wonderful goal against Man City!",
-            "url": "https://www.youtube.com/watch?v=iZ68OskGqow",
-            "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
-            "postedAt": 1667581754581
-        }
-    }
+{
+  "post": {
+    "id": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
+    "title": "Salah's wonderful goal against Man City!",
+    "url": "https://www.youtube.com/watch?v=iZ68OskGqow",
+    "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
+    "postedAt": 1667581754581
+  }
+}
 ```
 
 #### POST /api/v1/posts (Requires Auth)
 
-- General: 
+- General:
+
   - Adds a new post to the database.
-  
+
   - Signs and sends a JWT token to the client.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -d '{"title": "Salah's wonderful goal against Man City!", "url": "https://www.youtube.com/watch?v=iZ68OskGqow"}'`
@@ -196,30 +210,31 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
-    {
-    "post": {
-            "id": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
-            "title": "Salah's wonderful goal against Man City!",
-            "url": "https://www.youtube.com/watch?v=iZ68OskGqow",
-            "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
-            "postedAt": 1667581754581
-        }
-    }
+{
+  "post": {
+    "id": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
+    "title": "Salah's wonderful goal against Man City!",
+    "url": "https://www.youtube.com/watch?v=iZ68OskGqow",
+    "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
+    "postedAt": 1667581754581
+  }
+}
 ```
 
 #### DELETE /api/v1/posts/:id
 
-- General: 
+- General:
+
   - Returns a specific post using the post's id.
-  
-  - Sample Request : <br>`curl -X DELETE http://localhost:3001/api/v1/posts/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H "Accept: application/json"`
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/posts/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -X DELETE -H "Accept: application/json"`
 
   - Sample Response : Status code 200 in case of successful deletion.
 
-
 #### GET /api/v1/likes/:postId (Require Auth)
 
-- General: 
+- General:
+
   - Returns true if the signedIn user has a like on the post using the post's id.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}"`
@@ -227,14 +242,15 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
-    {
-        "exists": true
-    }
+{
+  "exists": true
+}
 ```
 
 #### GET /api/v1/likes/count/:postId
 
-- General: 
+- General:
+
   - Returns the number of likes on a post using the post's id.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/count/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498`
@@ -242,14 +258,15 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
-    {
-        "likes": 23
-    }
+{
+  "likes": 23
+}
 ```
 
 #### POST /api/v1/likes/:postId (Require Auth)
 
-- General: 
+- General:
+
   - Adds a new like from the signedIn user on the post with postId.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X POST`
@@ -258,17 +275,18 @@ Web app for sharing and discussing football tactics related posts
 
 #### DELETE /api/v1/likes/:postId (Require Auth)
 
-- General: 
+- General:
+
   - deletes signedIn user like on the post with postId.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
 
   - Sample Response : Status code 200 in case of successful like deletion.
 
-
 #### GET /api/v1/comments/:postId
 
-- General: 
+- General:
+
   - Returns all the comments on post using the post's id.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498`
@@ -276,22 +294,23 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
+{
+  "comments": [
     {
-        "comments": [
-        {
-          "id":"3cd7e84f49d9ffe7a55b69becc6e90f06a652b54",
-          "userId":"daa2688c36f35962c53e88d54d520c23c18d43e7",
-          "postId":"f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
-          "comment":"What a goal!",
-          "postedAt": 1667581754581
-        }
-        ]
+      "id": "3cd7e84f49d9ffe7a55b69becc6e90f06a652b54",
+      "userId": "daa2688c36f35962c53e88d54d520c23c18d43e7",
+      "postId": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
+      "comment": "What a goal!",
+      "postedAt": 1667581754581
     }
+  ]
+}
 ```
 
 #### GET /api/v1/comments/count/:postId
 
-- General: 
+- General:
+
   - Returns the number of comments on a post using the post's id.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/count/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498`
@@ -299,14 +318,15 @@ Web app for sharing and discussing football tactics related posts
   - Sample Response :<br>
 
 ```json
-    {
-        "comments": 15
-    }
+{
+  "comments": 15
+}
 ```
 
 #### POST /api/v1/comments/:postId (Require Auth)
 
-- General: 
+- General:
+
   - Adds a new comment from the signedIn user on the post with postId.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X POST -d '{"comment": "What a goal!"}'`
@@ -315,7 +335,8 @@ Web app for sharing and discussing football tactics related posts
 
 #### DELETE /api/v1/comments/:id (Require Auth)
 
-- General: 
+- General:
+
   - deletes signedIn user comment using comment's id.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/3cd7e84f49d9ffe7a55b69becc6e90f06a652b54 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
