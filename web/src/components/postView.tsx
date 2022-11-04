@@ -87,7 +87,7 @@ export const PostView: React.FC<Post> = (post) => {
     <Center>
       <Box
         maxW="6xl"
-        w={["sm", "xl", "4xl"]}
+        w={["sm", "lg", "3xl"]}
         m={5}
         boxShadow="xl"
         p="6"

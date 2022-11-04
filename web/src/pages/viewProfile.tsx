@@ -27,7 +27,7 @@ export const ViewProfile = () => {
 
   return (
     <Center flexDirection="column">
-      <Flex direction="column" boxShadow="md" p="6" rounded="md" width="100vw">
+      <Flex direction="column" boxShadow="md" p="6" rounded="md" width="100%">
         <Image src={Icon} boxSize="200px" borderRadius="full" mx="auto" />
         <Box mx="auto">
           <Heading as="h2" size="2xl">

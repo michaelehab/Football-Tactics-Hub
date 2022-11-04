@@ -47,7 +47,7 @@ export const CommentCard: React.FC<Comment> = (comment) => {
   return (
     <Flex
       maxW="6xl"
-      w={["sm", "xl", "4xl"]}
+      w={["sm", "lg", "3xl"]}
       m={5}
       direction="column"
       margin={5}
