@@ -46,6 +46,17 @@ export type GetUserResponse = {
   user: Pick<User, "email" | "firstName" | "lastName" | "id" | "userName">;
 };
 
+export interface GetUserProfileDataRequest {}
+export type GetUserProfileDataResponse = {
+  user: Pick<User, "email" | "firstName" | "lastName" | "id" | "userName">;
+  recentPosts: Post[];
+  stats: {
+    numberOfLikes: number;
+    numberOfComments: number;
+    numberOfPosts: number;
+  };
+};
+
 // Likes APIs
 export interface AddLikeRequest {}
 export interface AddLikeResponse {}

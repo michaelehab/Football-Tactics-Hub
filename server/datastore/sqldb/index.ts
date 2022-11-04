@@ -134,4 +134,33 @@ export class SQLDataStore implements DataStore {
   async deletePost(id: string): Promise<void> {
     await this.db.run('DELETE FROM posts WHERE id = ?', id);
   }
+
+  async getUserLikesCount(id: string): Promise<number> {
+    const result = await this.db.get<{ likesCount: number }>(
+      'SELECT Count(*) as likesCount FROM likes WHERE userId = ?',
+      id
+    );
+    return result === undefined ? 0 : result.likesCount;
+  }
+  async getUserCommentsCount(id: string): Promise<number> {
+    const result = await this.db.get<{ commentsCount: number }>(
+      'SELECT Count(*) as commentsCount FROM comments WHERE userId = ?',
+      id
+    );
+    return result === undefined ? 0 : result.commentsCount;
+  }
+  async getUserPostsCount(id: string): Promise<number> {
+    const result = await this.db.get<{ postsCount: number }>(
+      'SELECT Count(*) as postsCount FROM posts WHERE userId = ?',
+      id
+    );
+    return result === undefined ? 0 : result.postsCount;
+  }
+  async getUserRecentNPosts(id: string, numberOfPosts: number): Promise<Post[] | undefined> {
+    return await this.db.get<Post[]>(
+      'SELECT * FROM posts WHERE userId = ? ORDER BY postedAt DESC LIMIT ?',
+      id,
+      numberOfPosts
+    );
+  }
 }

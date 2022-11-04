@@ -6,6 +6,7 @@ import {
   Flex,
   Input,
   Center,
+  Text,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -92,8 +93,13 @@ export const GetPost = () => {
             <Button onClick={deletePost}>X</Button>
           )}
         </Flex>
-        {!!commentsData &&
-          commentsData.comments.map((c, i) => <CommentCard key={i} {...c} />)}
+        <Flex>
+          {!!commentsData && commentsData.comments.length > 0 ? (
+            commentsData.comments.map((c, i) => <CommentCard key={i} {...c} />)
+          ) : (
+            <Center>No comments on this post</Center>
+          )}
+        </Flex>
         {isLoggedIn() ? (
           <form onSubmit={addComment}>
             <Flex maxW="sm" mx="auto" my={10} direction="column" gap={3}>

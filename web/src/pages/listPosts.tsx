@@ -7,6 +7,7 @@ import {
 import { callEndpoint } from "../utils/callEndpoint";
 import { PostCard } from "../components/postCard";
 import { useTitle } from "../utils/useTitle";
+import { Center, Text } from "@chakra-ui/react";
 
 export const ListPosts = () => {
   useTitle("Home");
@@ -24,9 +25,12 @@ export const ListPosts = () => {
   }
 
   return (
-    <div>
-      {!!data?.posts &&
-        data.posts.map((post, i) => <PostCard key={i} {...post} />)}
-    </div>
+    <Center>
+      {!!data?.posts && data.posts.length > 0 ? (
+        data?.posts.map((post, i) => <PostCard key={i} {...post} />)
+      ) : (
+        <Text>No Posts right now</Text>
+      )}
+    </Center>
   );
 };

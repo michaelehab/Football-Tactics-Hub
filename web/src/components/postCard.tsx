@@ -57,7 +57,9 @@ export const PostCard: React.FC<Post> = (post) => {
           </Link>
         </Flex>
         <Flex gap={3}>
-          <Text color="#31C48D">{user?.user.userName}</Text>
+          <ChakraLink color="#31C48D" href={`/user/${user?.user.id}`}>
+            {user?.user.userName}
+          </ChakraLink>
           <Text>{format(post.postedAt, "en_US")}</Text>
         </Flex>
       </Flex>

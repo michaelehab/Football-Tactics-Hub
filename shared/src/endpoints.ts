@@ -11,6 +11,7 @@ export enum Endpoints {
   signup = "signup",
   getUser = "getUser",
   getSignedInUser = "getSignedInUser",
+  getUserProfile = "getUserProfile",
 
   createPost = "createPost",
   listPosts = "listPosts",
@@ -38,6 +39,7 @@ export const ENDPOINT_CONFIGS: { [key in Endpoints]: Endpoint } = {
     auth: true,
   },
   [Endpoints.getUser]: { method: "get", url: "/api/v1/user/:userId" },
+  [Endpoints.getUserProfile]: { method: "get", url: "/api/v1/profile/:userId" },
 
   [Endpoints.listPosts]: { method: "get", url: "/api/v1/posts" },
   [Endpoints.getPost]: { method: "get", url: "/api/v1/posts/:id" },

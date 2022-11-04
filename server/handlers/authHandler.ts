@@ -1,4 +1,6 @@
 import {
+  GetUserProfileDataRequest,
+  GetUserProfileDataResponse,
   GetUserRequest,
   GetUserResponse,
   SignInRequest,
@@ -100,6 +102,35 @@ export class AuthHandler {
         },
       });
     };
+
+  public getProfile: ExpressHandlerWithParams<
+    { userId: string },
+    GetUserProfileDataRequest,
+    GetUserProfileDataResponse
+  > = async (req, res) => {
+    if (!req.params.userId) {
+      return res.status(400).send({ error: 'UserId is required but missing' });
+    }
+    const existing = await this.db.getUserById(req.params.userId);
+    if (!existing) {
+      return res.sendStatus(404);
+    }
+    return res.status(200).send({
+      user: {
+        id: existing.id,
+        firstName: existing.firstName,
+        lastName: existing.lastName,
+        userName: existing.userName,
+        email: existing.email,
+      },
+      recentPosts: await this.db.getUserRecentNPosts(existing.id, 5),
+      stats: {
+        numberOfComments: await this.db.getUserCommentsCount(existing.id),
+        numberOfLikes: await this.db.getUserLikesCount(existing.id),
+        numberOfPosts: await this.db.getUserPostsCount(existing.id),
+      },
+    });
+  };
 
   public signedIn: ExpressHandler<GetUserRequest, GetUserResponse> = async (req, res) => {
     const existing = await this.db.getUserById(res.locals.userId);
