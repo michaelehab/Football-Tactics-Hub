@@ -38,13 +38,7 @@ export const Hero = () => {
         </Text>
         <Stack spacing={6} direction={"row"}>
           <Link to="/signup">
-            <Button
-              rounded={"full"}
-              px={6}
-              colorScheme={"orange"}
-              bg={"orange.400"}
-              _hover={{ bg: "orange.500" }}
-            >
+            <Button rounded={"full"} px={6} colorScheme="green" variant="solid">
               Create an account
             </Button>
           </Link>

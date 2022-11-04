@@ -109,7 +109,7 @@ export const PostCard: React.FC<Post> = (post) => {
                 ))}
             </Box>
             <Link to={`/post/${post.id}`}>
-              <Text fontSize="md" fontWeight="bold" color="#096A2E">
+              <Text fontSize="md" fontWeight="bold">
                 {post.title}
               </Text>
             </Link>
@@ -123,7 +123,7 @@ export const PostCard: React.FC<Post> = (post) => {
         </Flex>
         <Flex gap={3} justifyContent="space-between" align="center">
           <Flex gap={2}>
-            <ChakraLink color="#31C48D" href={`/user/${user?.user.id}`}>
+            <ChakraLink color={"orange.400"} href={`/user/${user?.user.id}`}>
               {user?.user.userName}
             </ChakraLink>
             <Text color="#31C48D">-</Text>
