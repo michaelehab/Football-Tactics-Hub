@@ -9,7 +9,7 @@ import {
 import { useParams } from "react-router";
 import { callEndpoint, replaceParams } from "../utils/callEndpoint";
 
-import Icon from "../assets/logo/user.png";
+import Icon from "../assets/user.png";
 import { PostCard } from "../components/postCard";
 
 export const ViewProfile = () => {

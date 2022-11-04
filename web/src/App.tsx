@@ -5,7 +5,8 @@ import { NavBar } from "./components/navBar";
 import { SignIn } from "./pages/signIn";
 import { SignUp } from "./pages/signUp";
 import { NewPost } from "./pages/newPost";
-import { ViewProfile } from "./pages/ViewProfile";
+import { ViewProfile } from "./pages/viewProfile";
+import { Hero } from "./pages/heroPage";
 
 export const App = () => {
   return (
@@ -14,7 +15,8 @@ export const App = () => {
         <NavBar />
       </>
       <Routes>
-        <Route path="/" element={<ListPosts />} />
+        <Route path="/" element={<Hero />} />
+        <Route path="/posts" element={<ListPosts />} />
         <Route path="/post/:id" element={<GetPost />} />
         <Route path="/user/:id" element={<ViewProfile />} />
         <Route path="/signin" element={<SignIn />} />
