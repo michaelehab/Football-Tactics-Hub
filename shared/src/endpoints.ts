@@ -70,7 +70,7 @@ export const ENDPOINT_CONFIGS: { [key in Endpoints]: Endpoint } = {
 
   [Endpoints.countComments]: {
     method: "get",
-    url: "/api/v1/comments/:postId/count",
+    url: "/api/v1/comments/count/:postId",
   },
   [Endpoints.listComments]: { method: "get", url: "/api/v1/comments/:postId" },
   [Endpoints.createComment]: {
