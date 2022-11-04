@@ -54,7 +54,7 @@ Web app for sharing and discussing football tactics related posts
   
   - Signs and sends a JWT token to the client.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/signin -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP"}'`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP"}'`
 
   - Sample Response :<br>
 
@@ -64,4 +64,24 @@ Web app for sharing and discussing football tactics related posts
 }
 ```
 
+#### GET /api/v1/user (Requires Auth)
+
+- General: 
+  - Returns the currently signed in user.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/user -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}"`
+
+  - Sample Response :<br>
+
+```json
+    {
+        "user": {
+          "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
+          "firstName": "Michael",
+          "lastName": "Ehab",
+          "userName": "michaelehab",
+          "email": "michael@email.com"
+          }
+    }
+```
 ### Client details: (React.js, TypeScript)
