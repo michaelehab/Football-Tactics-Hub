@@ -133,4 +133,34 @@ Web app for sharing and discussing football tactics related posts
 }
 ```
 
+#### GET /api/v1/posts
+
+- General: 
+  - Returns all the posts from the database (no pagination yet)
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/posts`
+
+  - Sample Response :<br>
+
+```json
+    {
+    "posts": [
+        {
+            "id": "3cd7e84f49d9ffe7a55b69becc6e90f06a652b54",
+            "title": "Check this Arsenal tiki taka goal",
+            "url": "https://www.youtube.com/watch?v=qsPYfQyZZZ0",
+            "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
+            "postedAt": 1667581704506
+        },
+        {
+            "id": "f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
+            "title": "Salah's wonderful goal against Man City!",
+            "url": "https://www.youtube.com/watch?v=iZ68OskGqow",
+            "userId": "1a35808fd784b53f26d4e8390fd1ec2b4556acb2",
+            "postedAt": 1667581754581
+        }
+    ]
+}
+```
+
 ### Client details: (React.js, TypeScript)
