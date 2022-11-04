@@ -232,12 +232,12 @@ Web app for sharing and discussing football tactics related posts
     }
 ```
 
-#### GET /api/v1/likes/count/:postId (Require Auth)
+#### GET /api/v1/likes/count/:postId
 
 - General: 
   - Returns the number of likes on a post using the post's id.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/count/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}"`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/count/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498`
 
   - Sample Response :<br>
 
@@ -264,5 +264,62 @@ Web app for sharing and discussing football tactics related posts
   - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
 
   - Sample Response : Status code 200 in case of successful like deletion.
+
+
+#### GET /api/v1/comments/:postId
+
+- General: 
+  - Returns all the comments on post using the post's id.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498`
+
+  - Sample Response :<br>
+
+```json
+    {
+        "comments": [
+        {
+          "id":"3cd7e84f49d9ffe7a55b69becc6e90f06a652b54",
+          "userId":"daa2688c36f35962c53e88d54d520c23c18d43e7",
+          "postId":"f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498",
+          "comment":"What a goal!",
+          "postedAt": 1667581754581
+        }
+        ]
+    }
+```
+
+#### GET /api/v1/comments/count/:postId
+
+- General: 
+  - Returns the number of comments on a post using the post's id.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/count/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498`
+
+  - Sample Response :<br>
+
+```json
+    {
+        "comments": 15
+    }
+```
+
+#### POST /api/v1/comments/:postId (Require Auth)
+
+- General: 
+  - Adds a new comment from the signedIn user on the post with postId.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X POST -d '{"comment": "What a goal!"}'`
+
+  - Sample Response : Status code 200 in case of successful comment insertion.
+
+#### DELETE /api/v1/comments/:id (Require Auth)
+
+- General: 
+  - deletes signedIn user comment using comment's id.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/3cd7e84f49d9ffe7a55b69becc6e90f06a652b54 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
+
+  - Sample Response : Status code 200 in case of successful comment deletion.
 
 ### Client details: (React.js, TypeScript)
