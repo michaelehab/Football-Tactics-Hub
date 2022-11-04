@@ -1,4 +1,4 @@
-# Football Tactics Hub
+![App Logo](./web/src/assets/logo/svg/logo-no-background.svg)
 
 ## Description
 
