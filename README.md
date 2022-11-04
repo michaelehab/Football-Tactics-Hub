@@ -1,8 +1,48 @@
-# Football Tactics Hub
+<div align="center">
+  <img src="./web/src/assets/logo/svg/logo-no-background.svg" alt="Football Tactics Hub App Logo" height=250vh margin="auto"/>
+</div>
 
 ## Description
 
-Web app for sharing and discussing football tactics related posts
+Web app for sharing and discussing football tactics related posts.
+
+## Getting Started
+
+### Installing Dependencies
+Navigate to the `/server` directory and run:
+
+```bash
+npm i
+```
+then navigate to the `/web` directory and run:
+
+```bash
+npm i
+```
+### Creating the .env file
+Navigate to the `/server` directory, create the `.env` file and fill the required values, for example:
+```
+JWT_SECRET="P3pERrHGia"
+JWT_EXPIRES_IN="2 days"
+
+PASSWORD_SALT="OtbO0qbCqE"
+PASSWORD_ITERATIONS=11
+PASSWORD_KEYLEN=12
+```
+### Running the server
+
+From within the `/server` directory, to run the server, execute:
+
+```bash
+PORT=3001 npm start
+```
+
+### Starting the web client
+From within the `/web` directory, to run the web client, execute:
+
+```bash
+npm start
+```
 
 ## Server details: (Node.js, TypeScript)
 
@@ -343,4 +383,8 @@ Web app for sharing and discussing football tactics related posts
 
   - Sample Response : Status code 200 in case of successful comment deletion.
 
-### Client details: (React.js, TypeScript)
+### Client details: (React.js, TypeScript, Chakra UI)
+### Screenshots:
+![Home Page](https://user-images.githubusercontent.com/29122581/200072325-4971d341-d494-4ba1-b32b-f6b2b325a47c.png)
+![Post Comments](https://user-images.githubusercontent.com/29122581/200075526-b022dfb5-27a1-4bf8-8c2b-168df7978bb7.png)
+![User Profile](https://user-images.githubusercontent.com/29122581/200072389-6cb6c3fe-e5ab-4811-b357-04ab831227cf.png)
