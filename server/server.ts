@@ -47,6 +47,7 @@ import { loggerMiddleWare } from './middleware/loggerMiddleware';
     [Endpoints.countLikes]: likeHandler.count,
     [Endpoints.createLike]: likeHandler.create,
     [Endpoints.deleteLike]: likeHandler.delete,
+    [Endpoints.checkLikeExist]: likeHandler.exists,
 
     [Endpoints.countComments]: commentHandler.count,
     [Endpoints.listComments]: commentHandler.list,

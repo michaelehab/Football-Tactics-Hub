@@ -1,6 +1,8 @@
 import {
   AddLikeRequest,
   AddLikeResponse,
+  CheckLikeExistsRequest,
+  CheckLikeExistsResponse,
   CountPostLikesRequest,
   CountPostLikesResponse,
   DeleteLikeRequest,
@@ -74,5 +76,21 @@ export class LikeHandler {
 
     const numberOfLikes = await this.db.getLikes(req.params.postId);
     return res.status(200).send({ likes: numberOfLikes });
+  };
+
+  public exists: ExpressHandlerWithParams<
+    { postId: string },
+    CheckLikeExistsRequest,
+    CheckLikeExistsResponse
+  > = async (req, res) => {
+    if (!req.params.postId) {
+      return res.status(400).send({ error: 'PostId is required but missing' });
+    }
+    const like = {
+      userId: res.locals.userId,
+      postId: req.params.postId,
+    };
+
+    return res.status(200).send({ exists: await this.db.exists(like) });
   };
 }

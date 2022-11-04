@@ -71,6 +71,11 @@ export interface CountPostLikesResponse {
 export interface DeleteLikeRequest {}
 export interface DeleteLikeResponse {}
 
+export interface CheckLikeExistsRequest {}
+export interface CheckLikeExistsResponse {
+  exists: boolean;
+}
+
 // Comments APIs
 export type CreateCommentRequest = Pick<Comment, "comment">;
 export interface CreateCommentResponse {

@@ -8,6 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { format } from "timeago.js";
 import {
+  CheckLikeExistsRequest,
+  CheckLikeExistsResponse,
   CountPostCommentsRequest,
   CountPostCommentsResponse,
   CountPostLikesRequest,
@@ -20,6 +22,8 @@ import {
 import { Link } from "react-router-dom";
 import { callEndpoint, replaceParams } from "../utils/callEndpoint";
 import { useQuery } from "@tanstack/react-query";
+import { isLoggedIn } from "../utils/auth";
+import { MinusIcon, TriangleUpIcon } from "@chakra-ui/icons";
 
 export const PostCard: React.FC<Post> = (post) => {
   const { data } = useQuery([`count${post.id}Comments`], () =>
@@ -39,13 +43,19 @@ export const PostCard: React.FC<Post> = (post) => {
       replaceParams(ENDPOINT_CONFIGS.countLikes, post.id)
     )
   );
+
+  const { data: userLikedPost } = useQuery([`get${post.id}LikesExist`], () =>
+    callEndpoint<CheckLikeExistsRequest, CheckLikeExistsResponse>(
+      replaceParams(ENDPOINT_CONFIGS.checkLikeExist, post.id)
+    )
+  );
+
   return (
     <Center>
-      <Flex
+      <Box
         maxW="6xl"
         w={["sm", "xl", "4xl"]}
         m={5}
-        direction="column"
         boxShadow="xl"
         p="6"
         rounded="md"
@@ -53,6 +63,13 @@ export const PostCard: React.FC<Post> = (post) => {
       >
         <Flex gap={3} justifyContent="space-between" align="center">
           <Flex gap={2}>
+            <Box>
+              {isLoggedIn() && userLikedPost?.exists ? (
+                <TriangleUpIcon />
+              ) : (
+                <MinusIcon />
+              )}
+            </Box>
             <Text fontSize="md" fontWeight="bold" color="#096A2E">
               {post.title}
             </Text>
@@ -77,7 +94,7 @@ export const PostCard: React.FC<Post> = (post) => {
           </Flex>
           <Text color="#31C48D">{format(post.postedAt, "en_US")}</Text>
         </Flex>
-      </Flex>
+      </Box>
     </Center>
   );
 };
