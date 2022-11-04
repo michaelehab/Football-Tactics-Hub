@@ -26,6 +26,7 @@ import { getLocalStorageUserId, isLoggedIn } from "../utils/auth";
 import { callEndpoint, replaceParams } from "../utils/callEndpoint";
 import { CommentCard } from "../components/commentCard";
 import { PostCard } from "../components/postCard";
+import { PostView } from "../components/postView";
 
 export const GetPost = () => {
   const { id } = useParams();
@@ -87,7 +88,7 @@ export const GetPost = () => {
     <Center>
       <Box>
         <Flex align="center">
-          <PostCard {...postData?.post!} />
+          <PostView {...postData?.post!} />
           {!!(postData?.post.userId === userId) && (
             <Button onClick={deletePost} title="Delete Post">
               X

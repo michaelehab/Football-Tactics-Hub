@@ -11,6 +11,7 @@ CREATE TABLE posts (
   id       VARCHAR PRIMARY KEY,
   title    VARCHAR NOT NULL,
   url      VARCHAR UNIQUE NOT NULL,
+  content  VARCHAR NOT NULL,
   userId   VARCHAR NOT NULL,
   postedAt INTEGER NOT NULL,
   FOREIGN KEY (userId) REFERENCES users (id)

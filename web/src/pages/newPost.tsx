@@ -7,6 +7,7 @@ import {
   AlertIcon,
   Center,
   Heading,
+  Textarea,
 } from "@chakra-ui/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,6 +26,7 @@ export const NewPost = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
+  const [content, setContent] = useState("");
   const [error, setError] = useState("");
 
   const createPost = useCallback(
@@ -41,6 +43,7 @@ export const NewPost = () => {
             {
               title,
               url,
+              content,
             }
           );
           navigate(`/post/${res.post.id}`);
@@ -49,7 +52,7 @@ export const NewPost = () => {
         }
       }
     },
-    [navigate, title, url]
+    [navigate, title, url, content]
   );
 
   useEffect(() => {
@@ -69,6 +72,13 @@ export const NewPost = () => {
           value={title}
           variant="outline"
           onChange={(e) => setTitle(e.target.value)}
+        />
+
+        <Textarea
+          placeholder="Post Content"
+          value={content}
+          variant="outline"
+          onChange={(e) => setContent(e.target.value)}
         />
         <Input
           placeholder="Post URL"

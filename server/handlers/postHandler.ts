@@ -35,6 +35,10 @@ export class PostHandler {
       return res.status(400).send({ error: 'Url field is required but missing' });
     }
 
+    if (!req.body.content) {
+      return res.status(400).send({ error: 'Content field is required but missing' });
+    }
+
     const existing = await this.db.getPostByUrl(req.body.url);
 
     if (existing) {
@@ -47,6 +51,7 @@ export class PostHandler {
       url: req.body.url,
       userId: res.locals.userId,
       postedAt: Date.now(),
+      content: req.body.content,
     };
 
     await this.db.createPost(post);

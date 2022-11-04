@@ -30,7 +30,7 @@ import { isLoggedIn } from "../utils/auth";
 import { CheckIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { FormEvent, useCallback } from "react";
 
-export const PostCard: React.FC<Post> = (post) => {
+export const PostView: React.FC<Post> = (post) => {
   const { data } = useQuery([`count${post.id}Comments`], () =>
     callEndpoint<CountPostCommentsRequest, CountPostCommentsResponse>(
       replaceParams(ENDPOINT_CONFIGS.countComments, post.id)
@@ -108,17 +108,18 @@ export const PostCard: React.FC<Post> = (post) => {
                   </Button>
                 ))}
             </Box>
-            <Link to={`/post/${post.id}`}>
-              <Text fontSize="md" fontWeight="bold" color="#096A2E">
-                {post.title}
-              </Text>
-            </Link>
+            <Text fontSize="md" fontWeight="bold" color="#096A2E">
+              {post.title}
+            </Text>
             <Text color="#31C48D">-</Text>
             <ChakraLink color="#ADBFB8" href={post.url}>
               Link
             </ChakraLink>
           </Flex>
           <Text color="#ADBFB8">{data?.comments ?? 0} Comments</Text>
+        </Flex>
+        <Flex m={5}>
+          <Text>{post.content}</Text>
         </Flex>
         <Flex gap={3} justifyContent="space-between" align="center">
           <Flex gap={2}>

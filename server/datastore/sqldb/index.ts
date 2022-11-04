@@ -114,12 +114,13 @@ export class SQLDataStore implements DataStore {
 
   async createPost(post: Post): Promise<void> {
     await this.db.run(
-      'INSERT INTO posts(id, title, url, postedAt, userId) VALUES (?, ?, ?, ?, ?)',
+      'INSERT INTO posts(id, title, url, postedAt, userId, content) VALUES (?, ?, ?, ?, ?, ?)',
       post.id,
       post.title,
       post.url,
       post.postedAt,
-      post.userId
+      post.userId,
+      post.content
     );
   }
 
