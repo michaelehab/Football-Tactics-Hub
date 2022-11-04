@@ -105,4 +105,32 @@ Web app for sharing and discussing football tactics related posts
           }
     }
 ```
+
+#### GET /api/v1/profile/:id
+
+- General: 
+  - Returns a specific user's profile (same as user but has some stats and recent posts) using his/her id.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/profile/daa2688c36f35962c53e88d54d520c23c18d43e7`
+
+  - Sample Response :<br>
+
+```json
+    {
+    "user": {
+        "id": "daa2688c36f35962c53e88d54d520c23c18d43e7",
+        "firstName": "Michael",
+        "lastName": "Ehab",
+        "userName": "michaelehab",
+        "email": "michael@email.com"
+    },
+    "recentPosts": [],
+    "stats": {
+        "numberOfComments": 2,
+        "numberOfLikes": 1,
+        "numberOfPosts": 0
+    }
+}
+```
+
 ### Client details: (React.js, TypeScript)
