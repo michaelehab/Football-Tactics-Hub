@@ -31,7 +31,7 @@ export class AuthHandler {
     }
 
     if (!validateEmail(email)) {
-      res.status(400).send({ error: 'email is invalid' });
+      return res.status(400).send({ error: 'email is invalid' });
     }
 
     const existingUser =

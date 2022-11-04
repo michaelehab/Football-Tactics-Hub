@@ -94,6 +94,7 @@ export const SignUp = () => {
 
         <Input
           placeholder="Password"
+          type="password"
           variant="outline"
           value={passWord}
           onChange={(e) => setPassWord(e.target.value)}
@@ -101,6 +102,7 @@ export const SignUp = () => {
 
         <Input
           placeholder="Confirm Password"
+          type="password"
           variant="outline"
           value={confirmPassWord}
           onChange={(e) => setConfirmPassWord(e.target.value)}

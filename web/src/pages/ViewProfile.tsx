@@ -1,15 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  Flex,
-  Input,
-  Center,
-  Text,
-  Heading,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Flex, Center, Text, Heading, Image } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import {
   ENDPOINT_CONFIGS,
