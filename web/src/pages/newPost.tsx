@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { isHttpUri, isHttpsUri } from "valid-url";
 import { useTitle } from "../utils/useTitle";
 import { isLoggedIn } from "../utils/auth";
 import {
@@ -32,6 +32,8 @@ export const NewPost = () => {
       e.preventDefault();
       if (title === "" || url === "") {
         setError("Please make sure all the fields are not empty!");
+      } else if (!isHttpUri(url) && !isHttpsUri(url)) {
+        setError("Please make sure the url is valid");
       } else {
         try {
           const res = await callEndpoint<CreatePostRequest, CreatePostResponse>(

@@ -113,7 +113,7 @@ export const PostCard: React.FC<Post> = (post) => {
             </Text>
             <Text color="#31C48D">-</Text>
             <ChakraLink color="#ADBFB8" href={post.url}>
-              {post.url}
+              Link
             </ChakraLink>
           </Flex>
           <Link to={`/post/${post.id}`}>
