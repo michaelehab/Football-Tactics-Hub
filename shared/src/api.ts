@@ -46,6 +46,8 @@ export type GetUserResponse = {
   user: Pick<User, "email" | "firstName" | "lastName" | "id" | "userName">;
 };
 
+export const userProfilePostsLimit: number = 5;
+
 export interface GetUserProfileDataRequest {}
 export type GetUserProfileDataResponse = {
   user: Pick<User, "email" | "firstName" | "lastName" | "id" | "userName">;

@@ -157,7 +157,7 @@ export class SQLDataStore implements DataStore {
     return result === undefined ? 0 : result.postsCount;
   }
   async getUserRecentNPosts(id: string, numberOfPosts: number): Promise<Post[] | undefined> {
-    return await this.db.get<Post[]>(
+    return await this.db.all<Post[]>(
       'SELECT * FROM posts WHERE userId = ? ORDER BY postedAt DESC LIMIT ?',
       id,
       numberOfPosts

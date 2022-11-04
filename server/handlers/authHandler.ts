@@ -8,6 +8,7 @@ import {
   SignUpRequest,
   SignUpResponse,
   User,
+  userProfilePostsLimit,
 } from '@footballtacticshub/shared';
 import crypto from 'crypto';
 
@@ -123,7 +124,7 @@ export class AuthHandler {
         userName: existing.userName,
         email: existing.email,
       },
-      recentPosts: await this.db.getUserRecentNPosts(existing.id, 5),
+      recentPosts: await this.db.getUserRecentNPosts(existing.id, userProfilePostsLimit),
       stats: {
         numberOfComments: await this.db.getUserCommentsCount(existing.id),
         numberOfLikes: await this.db.getUserLikesCount(existing.id),
