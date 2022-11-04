@@ -1,4 +1,13 @@
-import { Box, Button, Flex, Input, Alert, AlertIcon } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  Alert,
+  AlertIcon,
+  Heading,
+  Center,
+} from "@chakra-ui/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -37,6 +46,9 @@ export const SignIn = () => {
 
   return (
     <form onSubmit={signin}>
+      <Center>
+        <Heading color="#31C48D">SignIn</Heading>
+      </Center>
       <Flex maxW="sm" mx="auto" my={10} direction="column" gap={3}>
         <Input
           placeholder="Username or email"
