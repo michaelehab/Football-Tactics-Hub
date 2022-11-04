@@ -256,4 +256,13 @@ Web app for sharing and discussing football tactics related posts
 
   - Sample Response : Status code 200 in case of successful like insertion.
 
+#### DELETE /api/v1/likes/:postId (Require Auth)
+
+- General: 
+  - deletes signedIn user like on the post with postId.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
+
+  - Sample Response : Status code 200 in case of successful like deletion.
+
 ### Client details: (React.js, TypeScript)
