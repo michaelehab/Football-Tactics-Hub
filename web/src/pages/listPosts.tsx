@@ -7,7 +7,7 @@ import {
 import { callEndpoint } from "../utils/callEndpoint";
 import { PostCard } from "../components/postCard";
 import { useTitle } from "../utils/useTitle";
-import { Center, Text } from "@chakra-ui/react";
+import { Center, Text, Flex } from "@chakra-ui/react";
 
 export const ListPosts = () => {
   useTitle("Home");
@@ -26,11 +26,13 @@ export const ListPosts = () => {
 
   return (
     <Center>
-      {!!data?.posts && data.posts.length > 0 ? (
-        data?.posts.map((post, i) => <PostCard key={i} {...post} />)
-      ) : (
-        <Text>No Posts right now</Text>
-      )}
+      <Flex direction="column">
+        {!!data?.posts && data.posts.length > 0 ? (
+          data?.posts.map((post, i) => <PostCard key={i} {...post} />)
+        ) : (
+          <Text>No Posts right now</Text>
+        )}
+      </Flex>
     </Center>
   );
 };

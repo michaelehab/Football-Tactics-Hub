@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
 import { format } from "timeago.js";
 import {
   ENDPOINT_CONFIGS,
@@ -65,7 +65,9 @@ export const CommentCard: React.FC<Comment> = (comment) => {
         )}
       </Flex>
       <Flex gap={3}>
-        <Text color="#31C48D">{user?.user.userName}</Text>
+        <ChakraLink color="#31C48D" href={`/user/${user?.user.id}`}>
+          {user?.user.userName}
+        </ChakraLink>
         <Text>{format(comment.postedAt, "en_US")}</Text>
       </Flex>
     </Flex>

@@ -93,7 +93,7 @@ export const GetPost = () => {
             <Button onClick={deletePost}>X</Button>
           )}
         </Flex>
-        <Flex>
+        <Flex direction="column">
           {!!commentsData && commentsData.comments.length > 0 ? (
             commentsData.comments.map((c, i) => <CommentCard key={i} {...c} />)
           ) : (
