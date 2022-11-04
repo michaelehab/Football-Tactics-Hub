@@ -97,15 +97,16 @@ export const PostCard: React.FC<Post> = (post) => {
         <Flex gap={3} justifyContent="space-between" align="center">
           <Flex gap={2}>
             <Box>
-              {isLoggedIn() && userLikedPost?.exists ? (
-                <Button onClick={removeLike} height={4}>
-                  <CheckIcon />
-                </Button>
-              ) : (
-                <Button onClick={addLike} height={4}>
-                  <TriangleUpIcon />
-                </Button>
-              )}
+              {isLoggedIn() &&
+                (userLikedPost?.exists ? (
+                  <Button onClick={removeLike} height={4}>
+                    <CheckIcon />
+                  </Button>
+                ) : (
+                  <Button onClick={addLike} height={4}>
+                    <TriangleUpIcon />
+                  </Button>
+                ))}
             </Box>
             <Text fontSize="md" fontWeight="bold" color="#096A2E">
               {post.title}

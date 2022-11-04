@@ -85,11 +85,13 @@ export const GetPost = () => {
 
   return (
     <Center>
-      <Flex direction="column">
+      <Box>
         <Flex align="center">
           <PostCard {...postData?.post!} />
           {!!(postData?.post.userId === userId) && (
-            <Button onClick={deletePost}>X</Button>
+            <Button onClick={deletePost} title="Delete Post">
+              X
+            </Button>
           )}
         </Flex>
         <Flex direction="column">
@@ -99,7 +101,7 @@ export const GetPost = () => {
             <Center>No comments on this post</Center>
           )}
         </Flex>
-        {isLoggedIn() ? (
+        {isLoggedIn() && (
           <form onSubmit={addComment}>
             <Flex maxW="sm" mx="auto" my={10} direction="column" gap={3}>
               <Input
@@ -129,10 +131,8 @@ export const GetPost = () => {
               )}
             </Flex>
           </form>
-        ) : (
-          <div>You have to sign in to add comments!</div>
         )}
-      </Flex>
+      </Box>
     </Center>
   );
 };

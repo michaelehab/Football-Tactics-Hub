@@ -60,6 +60,7 @@ export const signUp = async (
 
 export const signOut = () => {
   localStorage.removeItem(LOCAL_STORAGE_JWT);
+  localStorage.removeItem(LOCAL_STORAGE_UserID);
 };
 
 export const getSignedInUser = async () => {

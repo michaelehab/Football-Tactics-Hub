@@ -46,9 +46,9 @@ export const CommentCard: React.FC<Comment> = (comment) => {
 
   return (
     <Flex
-      maxW="md"
-      width={500}
-      my={5}
+      maxW="6xl"
+      w={["sm", "xl", "4xl"]}
+      m={5}
       direction="column"
       margin={5}
       boxShadow="base"
@@ -61,7 +61,9 @@ export const CommentCard: React.FC<Comment> = (comment) => {
           {commentText}
         </Text>
         {!!(commentUser === userId) && (
-          <Button onClick={deleteComment}>X</Button>
+          <Button onClick={deleteComment} title="Delete Comment">
+            X
+          </Button>
         )}
       </Flex>
       <Flex gap={3}>

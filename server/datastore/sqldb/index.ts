@@ -109,7 +109,7 @@ export class SQLDataStore implements DataStore {
   }
 
   async listPosts(): Promise<Post[]> {
-    return await this.db.all<Post[]>('SELECT * FROM posts');
+    return await this.db.all<Post[]>('SELECT * FROM posts ORDER BY postedAt DESC');
   }
 
   async createPost(post: Post): Promise<void> {

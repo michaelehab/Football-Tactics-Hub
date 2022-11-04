@@ -7,6 +7,9 @@ import {
   AlertIcon,
   Center,
   Heading,
+  UnorderedList,
+  ListItem,
+  Text,
 } from "@chakra-ui/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -38,6 +41,16 @@ export const SignUp = () => {
         setError("Please make sure all the fields are not empty!");
       } else if (passWord !== confirmPassWord) {
         setError("Confirm Password doesn't match password!");
+      } else if (
+        !userName.match("^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$")
+      ) {
+        setError("Make sure your username match the required criteria");
+      } else if (
+        !passWord.match(
+          "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+        )
+      ) {
+        setError("Make sure your password match the required criteria");
       } else {
         try {
           await signUp(firstName, lastName, userName, email, passWord);
@@ -58,10 +71,44 @@ export const SignUp = () => {
 
   return (
     <form onSubmit={signup}>
-      <Center>
+      <Center flexDirection="column">
         <Heading color="#31C48D">SignUp</Heading>
+        <Box margin={5}>
+          <Alert status="info" padding={5}>
+            <AlertIcon />
+            <UnorderedList>
+              <ListItem>
+                Username Only contains alphanumeric characters, underscore and
+                dot.
+              </ListItem>
+              <ListItem>
+                Underscore and dot can't be at the end or start of a username
+                (e.g_username / username_ / .username / username.).
+              </ListItem>
+              <ListItem>
+                Underscore and dot can't be next to each other (e.g user_.name).
+              </ListItem>
+              <ListItem>
+                Underscore or dot can't be used multiple times in a row (e.g
+                user__name / user..name).
+              </ListItem>
+              <ListItem>
+                Number of characters of username must be between 8 to 20.
+              </ListItem>
+              <ListItem>
+                Password must contain at least one english lower letter and one
+                english upper letter
+              </ListItem>
+              <ListItem>
+                Password must contain at least one digit and one special
+                character
+              </ListItem>
+              <ListItem>Password length can't be less than 8</ListItem>
+            </UnorderedList>
+          </Alert>
+        </Box>
       </Center>
-      <Flex maxW="sm" mx="auto" my={10} direction="column" gap={3}>
+      <Flex maxW="sm" my={3} mx="auto" direction="column" gap={3}>
         <Flex gap={2}>
           <Input
             placeholder="First Name"
