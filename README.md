@@ -387,4 +387,5 @@ npm start
 ### Screenshots:
 ![Home Page](https://user-images.githubusercontent.com/29122581/200088041-4a7b9962-3cd6-4264-b72d-848ec5889f0d.png)
 ![User Profile](https://user-images.githubusercontent.com/29122581/200088065-3dc30335-dd30-43e4-9daa-5174d8b9fca5.png)
+![Posts Page](https://user-images.githubusercontent.com/29122581/200088827-7a439d0c-11d8-4765-a656-0d0098bf1924.png)
 
