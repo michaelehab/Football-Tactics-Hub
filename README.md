@@ -385,6 +385,6 @@ npm start
 
 ### Client details: (React.js, TypeScript, Chakra UI)
 ### Screenshots:
-![Home Page](https://user-images.githubusercontent.com/29122581/200072325-4971d341-d494-4ba1-b32b-f6b2b325a47c.png)
-![Post Comments](https://user-images.githubusercontent.com/29122581/200075526-b022dfb5-27a1-4bf8-8c2b-168df7978bb7.png)
-![User Profile](https://user-images.githubusercontent.com/29122581/200072389-6cb6c3fe-e5ab-4811-b357-04ab831227cf.png)
+![Home Page](https://user-images.githubusercontent.com/29122581/200088041-4a7b9962-3cd6-4264-b72d-848ec5889f0d.png)
+![User Profile](https://user-images.githubusercontent.com/29122581/200088065-3dc30335-dd30-43e4-9daa-5174d8b9fca5.png)
+
