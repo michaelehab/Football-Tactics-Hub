@@ -214,7 +214,7 @@ Web app for sharing and discussing football tactics related posts
   
   - Sample Request : <br>`curl -X DELETE http://localhost:3001/api/v1/posts/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H "Accept: application/json"`
 
-  - Sample Response : Status code 200 in case of successful deletion
+  - Sample Response : Status code 200 in case of successful deletion.
 
 
 #### GET /api/v1/likes/:postId (Require Auth)
@@ -246,5 +246,14 @@ Web app for sharing and discussing football tactics related posts
         "likes": 23
     }
 ```
+
+#### POST /api/v1/likes/:postId (Require Auth)
+
+- General: 
+  - Adds a new like from the signedIn user on the post with postId.
+
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X POST`
+
+  - Sample Response : Status code 200 in case of successful like insertion.
 
 ### Client details: (React.js, TypeScript)
