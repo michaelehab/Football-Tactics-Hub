@@ -4,7 +4,7 @@
 
 ## Description
 
-Web app for sharing and discussing football tactics related posts
+Web app for sharing and discussing football tactics related posts.
 
 ## Getting Started
 
@@ -20,7 +20,7 @@ then navigate to the `/web` directory and run:
 npm i
 ```
 ### Creating the .env file
-Navigate to the `server` directory, make `.env` file and fill the required values, for example:
+Navigate to the `/server` directory, create the `.env` file and fill the required values, for example:
 ```
 JWT_SECRET="P3pERrHGia"
 JWT_EXPIRES_IN="2 days"
@@ -31,14 +31,14 @@ PASSWORD_KEYLEN=12
 ```
 ### Running the server
 
-From within the `server` directory, to run the server, execute:
+From within the `/server` directory, to run the server, execute:
 
 ```bash
 PORT=3001 npm start
 ```
 
 ### Starting the web client
-From within the `web` directory, to run the web client, execute:
+From within the `/web` directory, to run the web client, execute:
 
 ```bash
 npm start
