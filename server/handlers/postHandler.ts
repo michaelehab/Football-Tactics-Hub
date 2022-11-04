@@ -35,6 +35,12 @@ export class PostHandler {
       return res.status(400).send({ error: 'Url field is required but missing' });
     }
 
+    const existing = await this.db.getPostByUrl(req.body.url);
+
+    if (existing) {
+      return res.status(400).send({ error: 'This url is already taken' });
+    }
+
     const post: Post = {
       id: crypto.randomBytes(20).toString('hex'),
       title: req.body.title,
@@ -44,7 +50,7 @@ export class PostHandler {
     };
 
     await this.db.createPost(post);
-    res.sendStatus(200);
+    res.status(200).send({ post });
   };
 
   public get: ExpressHandlerWithParams<{ id: string }, GetPostRequest, GetPostResponse> = async (

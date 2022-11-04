@@ -33,12 +33,12 @@ export const SignUp = () => {
         try {
           await signUp(firstName, lastName, userName, email, passWord);
           navigate("/");
-        } catch {
-          setError("Something went wrong, please try again");
+        } catch (err) {
+          setError(err as string);
         }
       }
     },
-    [navigate, firstName, lastName, userName, email, passWord]
+    [navigate, firstName, lastName, userName, email, passWord, confirmPassWord]
   );
 
   useEffect(() => {

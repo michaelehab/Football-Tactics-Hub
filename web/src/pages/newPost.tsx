@@ -3,54 +3,64 @@ import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useTitle } from "../utils/useTitle";
-import { isLoggedIn, signIn } from "../utils/auth";
+import { isLoggedIn } from "../utils/auth";
+import {
+  CreatePostRequest,
+  CreatePostResponse,
+  ENDPOINT_CONFIGS,
+} from "@footballtacticshub/shared";
+import { callEndpoint } from "../utils/callEndpoint";
 
-export const SignIn = () => {
-  useTitle("Sign in");
+export const NewPost = () => {
+  useTitle("New Post");
   const navigate = useNavigate();
-  const [login, setLogin] = useState("");
-  const [passWord, setPassWord] = useState("");
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
   const [error, setError] = useState("");
 
-  const signin = useCallback(
+  const createPost = useCallback(
     async (e: FormEvent | MouseEvent) => {
       e.preventDefault();
-      if (login === "" || passWord === "") {
-        setError("Login or password can't be empty!");
+      if (title === "" || url === "") {
+        setError("Please make sure all the fields are not empty!");
       } else {
         try {
-          await signIn(login, passWord);
-          navigate("/");
+          const res = await callEndpoint<CreatePostRequest, CreatePostResponse>(
+            ENDPOINT_CONFIGS.createPost,
+            {
+              title,
+              url,
+            }
+          );
+          navigate(`/post/${res.post.id}`);
         } catch (err) {
           setError(err as string);
         }
       }
     },
-    [navigate, login, passWord]
+    [navigate, title, url]
   );
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (!isLoggedIn()) {
       navigate("/");
     }
   }, [navigate]);
 
   return (
-    <form onSubmit={signin}>
+    <form onSubmit={createPost}>
       <Flex maxW="sm" mx="auto" my={10} direction="column" gap={3}>
         <Input
-          placeholder="Username or email"
-          value={login}
+          placeholder="Post Title"
+          value={title}
           variant="outline"
-          onChange={(e) => setLogin(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
-
         <Input
-          placeholder="Password"
+          placeholder="Post URL"
+          value={url}
           variant="outline"
-          type="password"
-          value={passWord}
-          onChange={(e) => setPassWord(e.target.value)}
+          onChange={(e) => setUrl(e.target.value)}
         />
 
         <Box m="auto">
@@ -59,9 +69,9 @@ export const SignIn = () => {
             variant="solid"
             type="submit"
             display="block"
-            onClick={signin}
+            onClick={createPost}
           >
-            Sign in
+            Create Post
           </Button>
         </Box>
 

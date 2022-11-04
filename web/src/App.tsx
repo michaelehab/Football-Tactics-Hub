@@ -4,6 +4,7 @@ import { ListPosts } from "./pages/listPosts";
 import { NavBar } from "./components/navBar";
 import { SignIn } from "./pages/signIn";
 import { SignUp } from "./pages/signUp";
+import { NewPost } from "./pages/newPost";
 
 export const App = () => {
   return (
@@ -16,6 +17,7 @@ export const App = () => {
         <Route path="/post/:id" element={<GetPost />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/new/post" element={<NewPost />} />
       </Routes>
     </BrowserRouter>
   );
