@@ -32,9 +32,9 @@ export const NewPost = () => {
   const createPost = useCallback(
     async (e: FormEvent | MouseEvent) => {
       e.preventDefault();
-      if (title === "" || url === "") {
-        setError("Please make sure all the fields are not empty!");
-      } else if (!isHttpUri(url) && !isHttpsUri(url)) {
+      if (title === "" && content === "") {
+        setError("Please make the post title and content are not empty!");
+      } else if (url !== "" && !isHttpUri(url) && !isHttpsUri(url)) {
         setError("Please make sure the url is valid");
       } else {
         try {
@@ -42,7 +42,7 @@ export const NewPost = () => {
             ENDPOINT_CONFIGS.createPost,
             {
               title,
-              url,
+              url: url ? url : "NoLink",
               content,
             }
           );

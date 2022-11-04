@@ -111,10 +111,11 @@ export const PostView: React.FC<Post> = (post) => {
             <Text fontSize="md" fontWeight="bold" color="#096A2E">
               {post.title}
             </Text>
-            <Text color="#31C48D">-</Text>
-            <ChakraLink color="#ADBFB8" href={post.url}>
-              Link
-            </ChakraLink>
+            {post.url !== "NoLink" && (
+              <ChakraLink color="#ADBFB8" href={post.url}>
+                - Link
+              </ChakraLink>
+            )}
           </Flex>
           <Text color="#ADBFB8">{data?.comments ?? 0} Comments</Text>
         </Flex>
