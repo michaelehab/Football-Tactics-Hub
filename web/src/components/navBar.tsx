@@ -38,9 +38,11 @@ export const NavBar = () => {
                 SignIn
               </Button>
             </Link>
-            <Button colorScheme="green" variant="solid">
-              SignUp
-            </Button>
+            <Link to={"signup"}>
+              <Button colorScheme="green" variant="solid">
+                SignUp
+              </Button>
+            </Link>
           </>
         )}
       </Flex>

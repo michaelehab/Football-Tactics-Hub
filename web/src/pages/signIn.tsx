@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, Input } from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Alert, AlertIcon } from "@chakra-ui/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,14 +15,18 @@ export const SignIn = () => {
   const signin = useCallback(
     async (e: FormEvent | MouseEvent) => {
       e.preventDefault();
-      try {
-        await signIn(login, passWord);
-        navigate("/");
-      } catch {
-        setError("Bad credentials");
+      if (login === "" || passWord === "") {
+        setError("Login or password can't be empty!");
+      } else {
+        try {
+          await signIn(login, passWord);
+          navigate("/");
+        } catch {
+          setError("Bad credentials");
+        }
       }
     },
-    [navigate, passWord, login]
+    [navigate, login, passWord]
   );
 
   useEffect(() => {
@@ -33,29 +37,42 @@ export const SignIn = () => {
 
   return (
     <form onSubmit={signin}>
-      <Flex maxW="sm" mx="auto" my={10} direction="column" gap={4}>
+      <Flex maxW="sm" mx="auto" my={10} direction="column" gap={3}>
         <Input
           placeholder="Username or email"
           value={login}
-          variant="filled"
+          variant="outline"
+          color="#ADBFB8"
           onChange={(e) => setLogin(e.target.value)}
         />
 
         <Input
           placeholder="Password"
-          variant="filled"
+          variant="outline"
+          color="#ADBFB8"
           type="password"
           value={passWord}
           onChange={(e) => setPassWord(e.target.value)}
         />
 
         <Box m="auto">
-          <Button type="submit" display="block" onClick={signin}>
+          <Button
+            colorScheme="green"
+            variant="solid"
+            type="submit"
+            display="block"
+            onClick={signin}
+          >
             Sign in
           </Button>
         </Box>
 
-        {!!error && <Text color="red.700">{error}</Text>}
+        {!!error && (
+          <Alert status="error">
+            <AlertIcon />
+            {error}
+          </Alert>
+        )}
       </Flex>
     </form>
   );
