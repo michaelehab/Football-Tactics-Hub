@@ -25,6 +25,25 @@ import { useCallback } from "react";
 
 const Links = ["Posts"];
 
+const NavLink = (link: string) => {
+  return (
+    <Link to={link.toLowerCase()}>
+      <Button
+        px={2}
+        py={1}
+        color={"green"}
+        rounded={"md"}
+        _hover={{
+          textDecoration: "none",
+          bg: useColorModeValue("gray.200", "gray.700"),
+        }}
+      >
+        {link}
+      </Button>
+    </Link>
+  );
+};
+
 export const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
@@ -59,22 +78,7 @@ export const NavBar = () => {
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <Link to={link.toLowerCase()}>
-                  <Button
-                    px={2}
-                    py={1}
-                    color={"green"}
-                    rounded={"md"}
-                    _hover={{
-                      textDecoration: "none",
-                      bg: useColorModeValue("gray.200", "gray.700"),
-                    }}
-                  >
-                    {link}
-                  </Button>
-                </Link>
-              ))}
+              {Links.map((link) => NavLink(link))}
             </HStack>
           </HStack>
           {isLoggedIn() ? (
@@ -128,22 +132,7 @@ export const NavBar = () => {
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <Link to={link.toLowerCase()}>
-                  <Button
-                    px={2}
-                    py={1}
-                    color={"green"}
-                    rounded={"md"}
-                    _hover={{
-                      textDecoration: "none",
-                      bg: useColorModeValue("gray.200", "gray.700"),
-                    }}
-                  >
-                    {link}
-                  </Button>
-                </Link>
-              ))}
+              {Links.map((link) => NavLink(link))}
             </Stack>
           </Box>
         ) : null}
