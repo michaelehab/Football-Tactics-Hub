@@ -319,7 +319,7 @@ npm start
 
 - General:
 
-  - deletes signedIn user like on the post with postId, the user sending this request must be the same user who added the like.
+  - Deletes signedIn user like on the post with postId, the user sending this request must be the same user who added the like.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
 
@@ -379,7 +379,7 @@ npm start
 
 - General:
 
-  - deletes signedIn user comment using comment's id, the user sending this request must be the same user who added the comment.
+  - Deletes signedIn user comment using comment's id, the user sending this request must be the same user who added the comment.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/3cd7e84f49d9ffe7a55b69becc6e90f06a652b54 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
 
