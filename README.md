@@ -77,7 +77,7 @@ npm start
 
   - User can use both his/her email and username to signin.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/signin -X POST -H "Content-Type: application/json" -d '{"login": "michaelehab", "password":"LMfUVfvS(+h(Z#PP}"}'`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signin -X POST -H "Content-Type: application/json" -d '{"login": "michaelehab", "password":"LMfUVfvS(+h(Z#PP}1"}'`
 
   - Sample Response :<br>
 
@@ -102,7 +102,7 @@ npm start
 
   - Signs and sends a JWT token to the client.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP}"}'`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP}1"}'`
 
   - Sample Response :<br>
 
@@ -389,8 +389,9 @@ npm start
 
 ### Client details: (React.js, TypeScript, Chakra UI)
 ### Screenshots:
-![Home Page](https://user-images.githubusercontent.com/29122581/200089457-4b1fd525-57c9-4856-83fa-d4502f1c4f3b.png)
-![User Profile](https://user-images.githubusercontent.com/29122581/200088065-3dc30335-dd30-43e4-9daa-5174d8b9fca5.png)
-![Posts Page](https://user-images.githubusercontent.com/29122581/200088827-7a439d0c-11d8-4765-a656-0d0098bf1924.png)
-![View Post](https://user-images.githubusercontent.com/29122581/200090076-1430902a-0f4a-44df-bf0d-4bf282d196db.png)
+![Home Page](https://user-images.githubusercontent.com/29122581/200119231-0164848a-2de5-4cee-89e1-e895e477613c.png)
+![User Profile](https://user-images.githubusercontent.com/29122581/200119237-c5b55650-d886-4ac8-945c-d3ce5297b6f1.png)
+![Posts Page](https://user-images.githubusercontent.com/29122581/200119245-923b519a-8369-47a1-a31e-418f2376ce8e.png)
+![View Post](https://user-images.githubusercontent.com/29122581/200119442-a3117cf5-f41b-4361-be07-819c7aaed7d4.png)
+![Navigation Bar](https://user-images.githubusercontent.com/29122581/200119264-9997103d-db5e-42c9-8579-cad73e901bb1.png)
 
