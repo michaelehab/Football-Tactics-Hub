@@ -1,5 +1,5 @@
 import { Endpoint } from "@footballtacticshub/shared";
-import { getLocalStorageJWT, isLoggedIn } from "./auth";
+import { getLocalStorageJWT, isLoggedIn, signOut } from "./auth";
 
 const HOST = "http://localhost:3001";
 
@@ -42,6 +42,10 @@ export async function callEndpoint<Request, Response>(
   });
   if (!response.ok) {
     let msg = (await response.json()).error;
+    if (msg === "Bad Token") {
+      signOut();
+      window.location.reload();
+    }
     throw msg;
   }
   const isJson = response.headers
