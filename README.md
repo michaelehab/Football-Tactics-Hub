@@ -393,5 +393,6 @@ npm start
 ![User Profile](https://user-images.githubusercontent.com/29122581/200119237-c5b55650-d886-4ac8-945c-d3ce5297b6f1.png)
 ![Posts Page](https://user-images.githubusercontent.com/29122581/200119245-923b519a-8369-47a1-a31e-418f2376ce8e.png)
 ![View Post](https://user-images.githubusercontent.com/29122581/200119442-a3117cf5-f41b-4361-be07-819c7aaed7d4.png)
+![Not Found Page](https://user-images.githubusercontent.com/29122581/200119622-a6aafca3-170d-4838-b831-139b5989b390.png)
 ![Navigation Bar](https://user-images.githubusercontent.com/29122581/200119264-9997103d-db5e-42c9-8579-cad73e901bb1.png)
 
