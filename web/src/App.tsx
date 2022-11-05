@@ -7,6 +7,7 @@ import { SignUp } from "./pages/signUp";
 import { NewPost } from "./pages/newPost";
 import { ViewProfile } from "./pages/viewProfile";
 import { Hero } from "./pages/heroPage";
+import { NotFound } from "./pages/notFound";
 
 export const App = () => {
   return (
@@ -22,6 +23,7 @@ export const App = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/new/post" element={<NewPost />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

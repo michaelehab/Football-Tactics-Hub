@@ -11,6 +11,7 @@ import { callEndpoint, replaceParams } from "../utils/callEndpoint";
 
 import Icon from "../assets/user.png";
 import { PostCard } from "../components/postCard";
+import { NotFound } from "./notFound";
 
 export const ViewProfile = () => {
   const { id } = useParams();
@@ -21,8 +22,8 @@ export const ViewProfile = () => {
     )
   );
 
-  if (!id) {
-    return <div>This post page is invalid!</div>;
+  if (!id || !userData) {
+    return <NotFound />;
   }
 
   return (

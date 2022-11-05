@@ -27,6 +27,7 @@ import { callEndpoint, replaceParams } from "../utils/callEndpoint";
 import { CommentCard } from "../components/commentCard";
 import { PostCard } from "../components/postCard";
 import { PostView } from "../components/postView";
+import { NotFound } from "./notFound";
 
 export const GetPost = () => {
   const { id } = useParams();
@@ -80,8 +81,8 @@ export const GetPost = () => {
     [comment, id, refetchComments]
   );
 
-  if (!id) {
-    return <div>This post page is invalid!</div>;
+  if (!id || !postData) {
+    return <NotFound />;
   }
 
   return (
