@@ -9,13 +9,13 @@ import {
   Heading,
   UnorderedList,
   ListItem,
-  Text,
 } from "@chakra-ui/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useTitle } from "../utils/useTitle";
 import { isLoggedIn, signUp } from "../utils/auth";
+import { validatePassword, validateUserName } from "../utils/validate";
 
 export const SignUp = () => {
   useTitle("Sign Up");
@@ -41,15 +41,9 @@ export const SignUp = () => {
         setError("Please make sure all the fields are not empty!");
       } else if (passWord !== confirmPassWord) {
         setError("Confirm Password doesn't match password!");
-      } else if (
-        !userName.match("^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$")
-      ) {
+      } else if (!validateUserName(userName)) {
         setError("Make sure your username match the required criteria");
-      } else if (
-        !passWord.match(
-          "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-        )
-      ) {
+      } else if (!validatePassword(passWord)) {
         setError("Make sure your password match the required criteria");
       } else {
         try {

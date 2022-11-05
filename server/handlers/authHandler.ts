@@ -15,7 +15,7 @@ import crypto from 'crypto';
 import { signJwt } from '../auth';
 import { DataStore } from '../datastore';
 import { ExpressHandler, ExpressHandlerWithParams } from '../types';
-import { getPasswordHashed, validateEmail } from '../utils';
+import { getPasswordHashed, validateEmail, validatePassword, validateUserName } from '../utils';
 
 export class AuthHandler {
   private db: DataStore;
@@ -32,6 +32,14 @@ export class AuthHandler {
 
     if (!validateEmail(email)) {
       return res.status(400).send({ error: 'email is invalid' });
+    }
+
+    if (!validateUserName(userName)) {
+      return res.status(400).send({ error: 'username is invalid' });
+    }
+
+    if (!validatePassword(password)) {
+      return res.status(400).send({ error: 'password is invalid' });
     }
 
     const existingUser =

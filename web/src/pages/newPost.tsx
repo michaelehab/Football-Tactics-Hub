@@ -18,6 +18,7 @@ import {
   CreatePostRequest,
   CreatePostResponse,
   ENDPOINT_CONFIGS,
+  noLinkInPost,
 } from "@footballtacticshub/shared";
 import { callEndpoint } from "../utils/callEndpoint";
 
@@ -42,7 +43,7 @@ export const NewPost = () => {
             ENDPOINT_CONFIGS.createPost,
             {
               title,
-              url: url ? url : "NoLink",
+              url: url ? url : noLinkInPost,
               content,
             }
           );

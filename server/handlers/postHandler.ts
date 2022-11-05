@@ -8,10 +8,12 @@ import {
   ListPostsRequest,
   ListPostsResponse,
   Post,
+  noLinkInPost,
 } from '@footballtacticshub/shared';
 
 import { DataStore } from '../datastore';
 import { ExpressHandler, ExpressHandlerWithParams } from '../types';
+import { validateUrl } from '../utils';
 
 const crypto = require('crypto');
 
@@ -32,17 +34,15 @@ export class PostHandler {
     }
 
     if (!req.body.url) {
-      return res.status(400).send({ error: 'Url field is required but missing' });
+      return res.status(400).send({ error: 'URL field is required but missing' });
+    }
+
+    if (req.body.url !== noLinkInPost && !validateUrl(req.body.url)) {
+      return res.status(400).send({ error: 'URL is invalid' });
     }
 
     if (!req.body.content) {
       return res.status(400).send({ error: 'Content field is required but missing' });
-    }
-
-    const existing = await this.db.getPostByUrl(req.body.url);
-
-    if (existing) {
-      return res.status(400).send({ error: 'This url is already taken' });
     }
 
     const post: Post = {

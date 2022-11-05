@@ -47,6 +47,7 @@ export type GetUserResponse = {
 };
 
 export const userProfilePostsLimit: number = 5;
+export const noLinkInPost: string = "NoLink";
 
 export interface GetUserProfileDataRequest {}
 export type GetUserProfileDataResponse = {
