@@ -4,7 +4,6 @@ import {
   Flex,
   Avatar,
   HStack,
-  Link as ChakraLink,
   IconButton,
   Button,
   Menu,

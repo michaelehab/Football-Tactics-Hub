@@ -77,7 +77,7 @@ npm start
 
   - User can use both his/her email and username to signin.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/signin -X POST -H "Content-Type: application/json" -d '{"login": "michaelehab", "password":"LMfUVfvS(+h(Z#PP}"}'`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signin -X POST -H "Content-Type: application/json" -d '{"login": "michaelehab", "password":"LMfUVfvS(+h(Z#PP}1"}'`
 
   - Sample Response :<br>
 
@@ -102,7 +102,7 @@ npm start
 
   - Signs and sends a JWT token to the client.
 
-  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP}"}'`
+  - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -d '{"firstName": "Michael", "lastName": "Ehab", "userName": "michaelehab", "email":"michael@email.com", "password":"LMfUVfvS(+h(Z#PP}1"}'`
 
   - Sample Response :<br>
 
@@ -246,8 +246,6 @@ npm start
 
   - Adds a new post to the database.
 
-  - Signs and sends a JWT token to the client.
-
   - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -d '{"title": "Salah's wonderful goal against Man City!", "url": "https://www.youtube.com/watch?v=iZ68OskGqow"}'`
 
   - Sample Response :<br>
@@ -265,11 +263,11 @@ npm start
 }
 ```
 
-#### DELETE /api/v1/posts/:id
+#### DELETE /api/v1/posts/:id (Require Auth)
 
 - General:
 
-  - Returns a specific post using the post's id.
+  - Returns a specific post using the post's id, the user sending this request must be the same user who created the post.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/posts/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -X DELETE -H "Accept: application/json"`
 
@@ -321,7 +319,7 @@ npm start
 
 - General:
 
-  - deletes signedIn user like on the post with postId.
+  - Deletes signedIn user like on the post with postId, the user sending this request must be the same user who added the like.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
 
@@ -381,7 +379,7 @@ npm start
 
 - General:
 
-  - deletes signedIn user comment using comment's id.
+  - Deletes signedIn user comment using comment's id, the user sending this request must be the same user who added the comment.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/comments/3cd7e84f49d9ffe7a55b69becc6e90f06a652b54 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
 
@@ -389,8 +387,10 @@ npm start
 
 ### Client details: (React.js, TypeScript, Chakra UI)
 ### Screenshots:
-![Home Page](https://user-images.githubusercontent.com/29122581/200089457-4b1fd525-57c9-4856-83fa-d4502f1c4f3b.png)
-![User Profile](https://user-images.githubusercontent.com/29122581/200088065-3dc30335-dd30-43e4-9daa-5174d8b9fca5.png)
-![Posts Page](https://user-images.githubusercontent.com/29122581/200088827-7a439d0c-11d8-4765-a656-0d0098bf1924.png)
-![View Post](https://user-images.githubusercontent.com/29122581/200090076-1430902a-0f4a-44df-bf0d-4bf282d196db.png)
+![Home Page](https://user-images.githubusercontent.com/29122581/200119231-0164848a-2de5-4cee-89e1-e895e477613c.png)
+![User Profile](https://user-images.githubusercontent.com/29122581/200119237-c5b55650-d886-4ac8-945c-d3ce5297b6f1.png)
+![Posts Page](https://user-images.githubusercontent.com/29122581/200119245-923b519a-8369-47a1-a31e-418f2376ce8e.png)
+![View Post](https://user-images.githubusercontent.com/29122581/200119442-a3117cf5-f41b-4361-be07-819c7aaed7d4.png)
+![Not Found Page](https://user-images.githubusercontent.com/29122581/200119622-a6aafca3-170d-4838-b831-139b5989b390.png)
+![Navigation Bar](https://user-images.githubusercontent.com/29122581/200119264-9997103d-db5e-42c9-8579-cad73e901bb1.png)
 

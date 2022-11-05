@@ -1,4 +1,5 @@
 import { Endpoint } from "@footballtacticshub/shared";
+import { ApiError } from "./apiError";
 import { getLocalStorageJWT, isLoggedIn, signOut } from "./auth";
 
 const HOST = "http://localhost:3001";
@@ -46,7 +47,7 @@ export async function callEndpoint<Request, Response>(
       signOut();
       window.location.reload();
     }
-    throw msg;
+    throw new ApiError(response.status, msg);
   }
   const isJson = response.headers
     .get("content-type")
