@@ -9,7 +9,7 @@ import {
 import { useParams } from "react-router";
 import { callEndpoint, replaceParams } from "../utils/callEndpoint";
 
-import Icon from "../assets/user.png";
+import Avatar from "../assets/user.png";
 import { PostCard } from "../components/postCard";
 import { NotFound } from "./notFound";
 
@@ -29,7 +29,7 @@ export const ViewProfile = () => {
   return (
     <Center flexDirection="column">
       <Flex direction="column" boxShadow="md" p="6" rounded="md" width="100%">
-        <Image src={Icon} boxSize="200px" borderRadius="full" mx="auto" />
+        <Image src={Avatar} boxSize="200px" borderRadius="full" mx="auto" />
         <Box mx="auto">
           <Heading as="h2" size="2xl">
             {userData?.user.userName}

@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GetPost } from "./pages/getPost";
 import { ListPosts } from "./pages/listPosts";
-import { NavBar } from "./components/navBar";
 import { SignIn } from "./pages/signIn";
 import { SignUp } from "./pages/signUp";
 import { NewPost } from "./pages/newPost";
 import { ViewProfile } from "./pages/viewProfile";
 import { Hero } from "./pages/heroPage";
 import { NotFound } from "./pages/notFound";
+import { NavBar } from "./components/navBar";
 
 export const App = () => {
   return (
