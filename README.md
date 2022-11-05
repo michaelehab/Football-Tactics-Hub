@@ -246,8 +246,6 @@ npm start
 
   - Adds a new post to the database.
 
-  - Signs and sends a JWT token to the client.
-
   - Sample Request : <br>`curl http://localhost:3001/api/v1/signup -X POST -H "Content-Type: application/json" -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -d '{"title": "Salah's wonderful goal against Man City!", "url": "https://www.youtube.com/watch?v=iZ68OskGqow"}'`
 
   - Sample Response :<br>
@@ -321,7 +319,7 @@ npm start
 
 - General:
 
-  - deletes signedIn user like on the post with postId.
+  - deletes signedIn user like on the post with postId, the user sending this request must be the same user who added the like.
 
   - Sample Request : <br>`curl http://localhost:3001/api/v1/likes/f9da75482aa33fd6a2230cc9ff9cc9b8b9a56498 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -X DELETE`
 
