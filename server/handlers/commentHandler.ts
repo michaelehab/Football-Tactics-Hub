@@ -6,6 +6,7 @@ import {
   CreateCommentResponse,
   DeleteCommentRequest,
   DeleteCommentResponse,
+  Errors,
   ListCommentsRequest,
   ListCommentsResponse,
 } from '@footballtacticshub/shared';
@@ -28,7 +29,7 @@ export class CommentHandler {
     ListCommentsResponse
   > = async (req, res) => {
     if (!req.params.postId) {
-      return res.status(400).send({ error: 'PostId is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_POST_ID });
     }
     return res.send({ comments: await this.db.listComments(req.params.postId) });
   };
@@ -39,11 +40,11 @@ export class CommentHandler {
     CreateCommentResponse
   > = async (req, res) => {
     if (!req.params.postId) {
-      return res.status(400).send({ error: 'PostId is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_POST_ID });
     }
 
     if (!req.body.comment || req.body.comment == '') {
-      return res.status(400).send({ error: 'Comment cannot be empty' });
+      return res.status(400).send({ error: Errors.COMMENT_NOT_EMPTY });
     }
 
     const comment: Comment = {
@@ -64,13 +65,13 @@ export class CommentHandler {
     DeleteCommentResponse
   > = async (req, res) => {
     if (!req.params.commentId) {
-      return res.status(400).send({ error: 'CommentId is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_COMMENT_ID });
     }
 
     const existing = await this.db.getCommentById(req.params.commentId);
 
     if (!existing) {
-      return res.status(400).send({ error: 'Comment does not exist' });
+      return res.status(400).send({ error: Errors.COMMENT_NOT_EXIST });
     }
 
     if (existing.userId !== res.locals.userId) {
@@ -87,7 +88,7 @@ export class CommentHandler {
     CountPostCommentsResponse
   > = async (req, res) => {
     if (!req.params.postId) {
-      return res.status(400).send({ error: 'PostId is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_POST_ID });
     }
 
     const numberOfComments = await this.db.countComments(req.params.postId);

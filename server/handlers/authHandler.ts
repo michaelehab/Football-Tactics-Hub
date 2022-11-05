@@ -9,6 +9,7 @@ import {
   SignUpResponse,
   User,
   userProfilePostsLimit,
+  Errors
 } from '@footballtacticshub/shared';
 import crypto from 'crypto';
 
@@ -27,26 +28,26 @@ export class AuthHandler {
   public signUp: ExpressHandler<SignUpRequest, SignUpResponse> = async (req, res) => {
     const { email, firstName, lastName, userName, password } = req.body;
     if (!email || !firstName || !lastName || !password || !userName) {
-      return res.status(400).send({ error: 'All Fields are required' });
+      return res.status(400).send({ error:  Errors.ALL_FIELDS_REQUIRED});
     }
 
     if (!validateEmail(email)) {
-      return res.status(400).send({ error: 'email is invalid' });
+      return res.status(400).send({ error: Errors.INVALID_EMAIL });
     }
 
     if (!validateUserName(userName)) {
-      return res.status(400).send({ error: 'username is invalid' });
+      return res.status(400).send({ error: Errors.INVALID_USERNAME });
     }
 
     if (!validatePassword(password)) {
-      return res.status(400).send({ error: 'password is invalid' });
+      return res.status(400).send({ error: Errors.INVALID_PASSWORD });
     }
 
     const existingUser =
       (await this.db.getUserByEmail(email)) || (await this.db.getUserByUsername(userName));
 
     if (existingUser) {
-      return res.status(403).send({ error: 'User already exists' });
+      return res.status(403).send({ error: Errors.USER_ALREADY_EXIST });
     }
 
     const usr: User = {
@@ -68,7 +69,7 @@ export class AuthHandler {
     const { login, password } = req.body;
 
     if (!login || !password) {
-      return res.status(400).send({ error: 'All Fields are required' });
+      return res.status(400).send({ error: Errors.ALL_FIELDS_REQUIRED });
     }
 
     let existingUser;
@@ -77,7 +78,7 @@ export class AuthHandler {
     else existingUser = await this.db.getUserByUsername(login);
 
     if (!existingUser || existingUser.password !== getPasswordHashed(password)) {
-      return res.status(403).send({ error: 'Wrong Credentials' });
+      return res.status(403).send({ error: Errors.WRONG_CREDENTIALS });
     }
 
     return res.status(200).send({
@@ -95,7 +96,7 @@ export class AuthHandler {
   public getUser: ExpressHandlerWithParams<{ userId: string }, GetUserRequest, GetUserResponse> =
     async (req, res) => {
       if (!req.params.userId) {
-        return res.status(400).send({ error: 'UserId is required but missing' });
+        return res.status(400).send({ error: Errors.MISSING_USER_ID });
       }
       const existing = await this.db.getUserById(req.params.userId);
       if (!existing) {
@@ -118,7 +119,7 @@ export class AuthHandler {
     GetUserProfileDataResponse
   > = async (req, res) => {
     if (!req.params.userId) {
-      return res.status(400).send({ error: 'UserId is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_USER_ID });
     }
     const existing = await this.db.getUserById(req.params.userId);
     if (!existing) {

@@ -7,6 +7,7 @@ import {
   CountPostLikesResponse,
   DeleteLikeRequest,
   DeleteLikeResponse,
+  Errors,
   Like,
 } from '@footballtacticshub/shared';
 
@@ -23,7 +24,7 @@ export class LikeHandler {
   public create: ExpressHandlerWithParams<{ postId: string }, AddLikeRequest, AddLikeResponse> =
     async (req, res) => {
       if (!req.params.postId) {
-        return res.status(400).send({ error: 'PostId is required but missing' });
+        return res.status(400).send({ error: Errors.MISSING_POST_ID });
       }
 
       const like: Like = {
@@ -34,7 +35,7 @@ export class LikeHandler {
       const existing = await this.db.exists(like);
 
       if (existing) {
-        return res.status(400).send({ error: 'Like already exists' });
+        return res.status(400).send({ error: Errors.LIKE_ALREADY_EXIST });
       }
 
       await this.db.createLike(like);
@@ -47,7 +48,7 @@ export class LikeHandler {
     DeleteLikeResponse
   > = async (req, res) => {
     if (!req.params.postId) {
-      return res.status(400).send({ error: 'PostId is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_POST_ID });
     }
 
     const like: Like = {
@@ -58,7 +59,7 @@ export class LikeHandler {
     const existing = await this.db.exists(like);
 
     if (!existing) {
-      return res.status(400).send({ error: 'Like does not exist' });
+      return res.status(400).send({ error: Errors.LIKE_NOT_EXIST });
     }
 
     await this.db.deleteLike(like);
@@ -71,7 +72,7 @@ export class LikeHandler {
     CountPostLikesResponse
   > = async (req, res) => {
     if (!req.params.postId) {
-      return res.status(400).send({ error: 'PostId is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_POST_ID });
     }
 
     const numberOfLikes = await this.db.getLikes(req.params.postId);
@@ -84,7 +85,7 @@ export class LikeHandler {
     CheckLikeExistsResponse
   > = async (req, res) => {
     if (!req.params.postId) {
-      return res.status(400).send({ error: 'PostId is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_POST_ID });
     }
     const like = {
       userId: res.locals.userId,

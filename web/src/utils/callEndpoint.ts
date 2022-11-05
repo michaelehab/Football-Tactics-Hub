@@ -1,4 +1,4 @@
-import { Endpoint } from "@footballtacticshub/shared";
+import { Endpoint, Errors } from "@footballtacticshub/shared";
 import { ApiError } from "./apiError";
 import { getLocalStorageJWT, isLoggedIn, signOut } from "./auth";
 
@@ -11,9 +11,11 @@ export const replaceParams = (
   let url = endpoint.url;
   const placeholders = url.match(/:[^\/]*/g) || [];
   if (placeholders.length !== params.length) {
-    throw `Too ${
-      placeholders.length < params.length ? "many" : "few"
-    } params for url: ${url}!`;
+    throw new Error(
+      `Too ${
+        placeholders.length < params.length ? "many" : "few"
+      } params for url: ${url}!`
+    );
   }
   for (let index = 0; index < params.length; index++) {
     url = url.replace(placeholders[index], params[index]);
@@ -43,7 +45,7 @@ export async function callEndpoint<Request, Response>(
   });
   if (!response.ok) {
     let msg = (await response.json()).error;
-    if (msg === "Bad Token") {
+    if (msg === Errors.BAD_TOKEN) {
       signOut();
       window.location.reload();
     }

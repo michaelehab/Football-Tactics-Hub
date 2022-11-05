@@ -3,6 +3,7 @@ import {
   CreatePostResponse,
   DeletePostRequest,
   DeletePostResponse,
+  Errors,
   GetPostRequest,
   GetPostResponse,
   ListPostsRequest,
@@ -30,19 +31,19 @@ export class PostHandler {
 
   public create: ExpressHandler<CreatePostRequest, CreatePostResponse> = async (req, res) => {
     if (!req.body.title) {
-      return res.status(400).send({ error: 'Title field is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_TITLE });
     }
 
     if (!req.body.url) {
-      return res.status(400).send({ error: 'URL field is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_URL });
     }
 
     if (req.body.url !== noLinkInPost && !validateUrl(req.body.url)) {
-      return res.status(400).send({ error: 'URL is invalid' });
+      return res.status(400).send({ error: Errors.INVALID_URL });
     }
 
     if (!req.body.content) {
-      return res.status(400).send({ error: 'Content field is required but missing' });
+      return res.status(400).send({ error: Errors.MISSING_CONTENT });
     }
 
     const post: Post = {
@@ -77,7 +78,7 @@ export class PostHandler {
   public delete: ExpressHandlerWithParams<{ id: string }, DeletePostRequest, DeletePostResponse> =
     async (req, res) => {
       if (!req.params.id) {
-        return res.status(400).send({ error: 'Post id is missing' });
+        return res.status(400).send({ error: Errors.MISSING_POST_ID });
       }
       const post = await this.db.getPost(req.params.id);
       if (!post || post.userId != res.locals.userId) {
